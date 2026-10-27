@@ -1,7 +1,7 @@
 # dti-ai-cx-brick (repo in development)
 ### Project: AI-Cx — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift
 
-This repository contains a proof of concept human-in-the-loop agentic workflow that maps building data and documentation to a validated [Brick Ontology](https://brickschema.org/) model, to support continuous commissioning developed by the Danish Technological Institute (DTI), within an Energy Cluster Denmark project.
+This repository contains a proof of concept human-in-the-loop agentic workflow that maps building data and information to a validated semantic [Brick Ontology](https://brickschema.org/) model to support continuous commissioning. Developed by the Danish Technological Institute (DTI) as part of an Energy Cluster Denmark project.
 
 Discover the workflow steps on an interactive page here: ??
 
