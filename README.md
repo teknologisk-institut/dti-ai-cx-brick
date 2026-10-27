@@ -1,2 +1,6 @@
 # dti-ai-cx-brick
-Proof-of-concept human-in-the-loop agentic workflow that maps proprietary BMS/CTS building data to a validated Brick ontology model per building, for commissioning and building operation. Developed as part of the Energy Cluster Denmark project, AI-Cx.
+Project: AI-CX — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift
+
+This repository contains a proof of concept human-in-the-loop agentic workflow that maps building data and documentation to a validated Brick ontology model per building, to support commissioning and building operation develoepd by the Danish Technological Institute (DTI), within an Energy Cluster Denmark project.
+
+Each BMS vendor and contractor names and structures points differently, so the same sensor appears different from building to building. The workflow takes the data a building already has, in example: point lists, time-series objects, BACnet exports, contractor documentation and screenshots of the BMS. It leverages the contents and translates these into a standard semantic model (using the Brick and RealEstateCore ontologies) that can subsequently be used for commissioning, fault detection, energy analytics, benchmarking and more across a building portfolio. AI agent skills interpret the material: they decode naming conventions and abbreviations, and extract equipment and system connections from the screenshots. Deterministic tools validate, classify and generate the model and a person confirms the AI’s proposals at defined checkpoints.
