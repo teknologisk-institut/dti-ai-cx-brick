@@ -7,4 +7,5 @@ Discover the workflow steps here: ??
 
 Each BMS vendor and contractor names and structures data points differently, so the same sensor, zone or plant may appear different from building to building. The workflow takes the available data a building already has as inputs, in example: point lists, time-series objects, BACnet exports, contractor documentation and screenshots of the BMS. It leverages the contents and maps these into a data model with standardized naming using classes and properties from the Brick and RealEstateCore ontologies, that can subsequently be used for commissioning, fault detection, energy analytics, benchmarking and more across a building portfolio. AI agent skills interpret the material: they decode naming conventions and abbreviations, and extract equipment and system connections from the screenshots. Deterministic tools validate, classify and generate the data model and a human-in-the-loop confirms agent proposals at defined checkpoints.
 
+Project principle diagram:
 ![Project Design Diagram](images/design.png)
