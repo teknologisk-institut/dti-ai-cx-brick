@@ -1,0 +1,468 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="3430" viewBox="0 0 900 3430" role="img" aria-label="Pipeline flow: the steps from the building profile to the validated model, the two data routes, how each step uses the inputs, where the agent, the tools and the batch runner work, and where you confirm or decide">
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
+.t { font-size: 13.5px; font-weight: 700; fill: #263238; }
+.b { font-size: 11px; }
+.m { font-family: Consolas, "Courier New", monospace; font-size: 10.5px; fill: #263238; }
+.k { font-size: 10px; font-style: italic; fill: #78909C; }
+.il { font-size: 8px; font-weight: 700; fill: #455A64; }
+.cp { font-size: 8.5px; font-weight: 700; letter-spacing: 0.3px; }
+.ch { font-size: 10px; font-weight: 700; fill: #78909C; letter-spacing: 1px; }
+.ht { font-size: 12px; font-weight: 700; fill: #C9471B; }
+.hb { font-size: 11px; fill: #4E342E; }
+.num { font-size: 12px; font-weight: 700; fill: #263238; }
+.lg { font-size: 11px; }
+.sb { font-size: 11px; font-weight: 700; }
+.lp { font-size: 9px; fill: #78909C; }
+.lh { font-size: 9.5px; font-weight: 700; fill: #78909C; letter-spacing: 0.8px; }
+</style>
+<defs>
+<symbol id="person" viewBox="0 0 16 16"><circle cx="8" cy="4.5" r="3.5" fill="#F26B3A"/><path d="M1.5 15.5c0-4 2.9-6.5 6.5-6.5s6.5 2.5 6.5 6.5z" fill="#F26B3A"/></symbol>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#546E7A"/></marker>
+<marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#78909C"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="3430" fill="#FFFFFF"/>
+<rect x="16" y="12" width="868" height="136" rx="8" fill="#FFFFFF" stroke="#CFD8DC"/>
+<text class="lh" x="30" y="32">BOXES AND LINES</text>
+<text class="lh" x="250" y="32">ROUTES</text>
+<text class="lh" x="410" y="32">WHO DOES THE WORK</text>
+<rect x="30" y="43" width="26" height="14" rx="3" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/><text class="lg" x="64" y="54">A step</text>
+<rect x="30" y="63" width="26" height="14" rx="3" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/><text class="lg" x="64" y="74">You confirm or decide</text>
+<line x1="30" y1="90" x2="56" y2="90" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ad)"/><text class="lg" x="64" y="94">Goes back to an earlier step</text>
+<rect x="250" y="43" width="26" height="14" rx="3" fill="#E0F2F1" stroke="#00897B" stroke-width="1.5"/><text class="lg" x="284" y="54">Timeseries route</text>
+<rect x="250" y="63" width="26" height="14" rx="3" fill="#E8EAF6" stroke="#3949AB" stroke-width="1.5"/><text class="lg" x="284" y="74">BACnet route</text>
+<rect x="410" y="44" width="46" height="14" rx="3" fill="#37474F"/><text class="cp" x="433" y="54" text-anchor="middle" style="fill:#FFFFFF">AGENT</text><text class="lg" x="466" y="54">Claude Code with the skills, in your session</text>
+<rect x="410" y="64" width="46" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="433" y="74" text-anchor="middle" style="fill:#37474F">TOOL</text><text class="lg" x="466" y="74">A script with fixed rules</text>
+<rect x="410" y="84" width="46" height="14" rx="3" fill="#FFFFFF" stroke="#37474F" stroke-dasharray="3 2"/><text class="cp" x="433" y="94" text-anchor="middle" style="fill:#37474F">BATCH</text><text class="lg" x="466" y="94">claude -p on each image, without you</text>
+<line x1="236" y1="22" x2="236" y2="102" stroke="#E0E6EA"/>
+<line x1="396" y1="22" x2="396" y2="102" stroke="#E0E6EA"/>
+<line x1="16.5" y1="110.5" x2="883.5" y2="110.5" stroke="#E0E6EA"/>
+<text class="lh" x="30" y="132">INPUTS</text>
+<rect x="94" y="122" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="117" y="132" text-anchor="middle" style="fill:#FFFFFF">TAGS</text><text class="lg" x="146" y="132">point list</text>
+<rect x="214.6" y="122" width="46" height="14" rx="3" fill="#1565C0"/><text class="cp" x="237.6" y="132" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text><text class="lg" x="266.6" y="132">database ids</text>
+<rect x="346.12" y="122" width="46" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="369.12" y="132" text-anchor="middle" style="fill:#FFFFFF">BMS</text><text class="lg" x="398.12" y="132">screenshots</text>
+<rect x="472.18" y="122" width="46" height="14" rx="3" fill="#E65100"/><text class="cp" x="495.18" y="132" text-anchor="middle" style="fill:#FFFFFF">BIM</text><text class="lg" x="524.1800000000001" y="132">IFC models</text>
+<rect x="592.78" y="122" width="46" height="14" rx="3" fill="#455A64"/><text class="cp" x="615.78" y="132" text-anchor="middle" style="fill:#FFFFFF">DOCS</text><text class="lg" x="644.78" y="132">documents</text>
+<rect x="707.92" y="122" width="46" height="14" rx="3" fill="#C62828"/><text class="cp" x="730.92" y="132" text-anchor="middle" style="fill:#FFFFFF">BRICK</text><text class="lg" x="759.92" y="132">Brick/REC ontology</text>
+<text class="ch" x="302" y="174" text-anchor="middle">STEPS</text>
+<text class="ch" x="760" y="174" text-anchor="middle">HUMAN IN THE LOOP</text>
+<g transform="translate(0 118)">
+<rect x="16" y="231.5" width="286" height="1298.5" rx="10" fill="#E0F2F1" opacity="0.7"/>
+<rect x="302" y="231.5" width="286" height="1298.5" rx="10" fill="#E8EAF6" opacity="0.7"/>
+<text class="sb" x="159" y="250.5" text-anchor="middle" style="fill:#00695C">Timeseries route</text>
+<text class="sb" x="445" y="250.5" text-anchor="middle" style="fill:#283593">BACnet route</text>
+<line x1="302" y1="205.5" x2="302" y2="261.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="635" x2="302" y2="659" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="938.5" x2="302" y2="1040.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="1215" x2="302" y2="1239" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="1520" x2="302" y2="1558" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="1667.5" x2="302" y2="1691.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="1908" x2="302" y2="2024.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="2255.5" x2="302" y2="2279.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="2568.5" x2="302" y2="2675.5" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="3018" x2="302" y2="3042" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="302" y1="3210" x2="302" y2="3234" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
+<text class="k" x="292" y="1546" text-anchor="end">the routes join</text>
+<text class="k" x="312" y="1546">same tools from here; BACnet extras as noted</text>
+<rect x="16" y="64" width="572" height="141.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text class="t" x="28" y="87">One-time setup: the Brick indexes, shared by all buildings</text>
+<text class="k" x="578" y="86" text-anchor="end">no skill</text>
+<line x1="16.75" y1="100.5" x2="587.25" y2="100.5" stroke="#E0E6EA"/>
+<rect x="28" y="107.5" width="50" height="14" rx="3" fill="#C62828"/><text class="cp" x="53" y="117.5" text-anchor="middle" style="fill:#FFFFFF">BRICK</text>
+<text class="b" x="86" y="118"><tspan class="m">Brick_nightly.ttl</tspan>: the development version of Brick 1.5.0, with REC, provided in the</text>
+<text class="b" x="86" y="132.5">repository. The steps use the two indexes made from it, not this file.</text>
+<rect x="28" y="141.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="151.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="152"><tspan class="m">build-brick-classification-index.ts</tspan> writes the class index: each class with its Brick</text>
+<text class="b" x="86" y="166.5">tags, read by the tools. <tspan class="m">build-brick-relationship-index.ts</tspan> writes the relationship</text>
+<text class="b" x="86" y="181">index, read by the agent through the skills. Both indexes are provided; run the two tools</text>
+<text class="b" x="86" y="195.5">again when you use a newer Brick version.</text>
+<rect x="16" y="263.5" width="572" height="371.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="270.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="285.5" text-anchor="middle">0</text>
+<text class="t" x="54" y="286.5">Inventory: the building profile</text>
+<text class="k" x="578" y="285.5" text-anchor="end">point-mapping skill</text>
+<line x1="16.75" y1="299.5" x2="587.25" y2="299.5" stroke="#E0E6EA"/>
+<rect x="28" y="307" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="317" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="317.5">Lists your files and proposes the route: a point list and <tspan class="m">objects.json</tspan> give timeseries;</text>
+<text class="b" x="86" y="332"><tspan class="m">devices.csv</tspan> and object files give BACnet. Then drafts the profile with you.</text>
+<rect x="26" y="345.5" width="272" height="143" rx="6" fill="#E0F2F1" stroke="#00897B"/>
+<rect x="34" y="353" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="57" y="363" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="363.5">Header and sample rows → delimiter,</text>
+<text class="b" x="34" y="378">columns, the marker for an empty cell, and rows</text>
+<text class="b" x="34" y="392.5">to skip.</text>
+<rect x="34" y="401.5" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="57" y="411.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="412">Tags sorted by their pattern → how a</text>
+<text class="b" x="34" y="426.5">tag splits into its zone or plant and its point</text>
+<text class="b" x="34" y="441">abbreviation.</text>
+<rect x="34" y="450" width="46" height="14" rx="3" fill="#1565C0"/><text class="cp" x="57" y="460" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="86" y="460.5">Listed as the source of the ids and</text>
+<text class="b" x="34" y="475">units.</text>
+<rect x="306" y="345.5" width="272" height="143" rx="6" fill="#E8EAF6" stroke="#3949AB"/>
+<rect x="314" y="353" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="337" y="363" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="366" y="363.5"><tspan class="m">devices.csv</tspan> columns → the device</text>
+<text class="b" x="314" y="378">roles.</text>
+<rect x="314" y="387" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="337" y="397" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="366" y="397.5">Object names sorted by their pattern →</text>
+<text class="b" x="314" y="412">rules that clean the names, place each object</text>
+<text class="b" x="314" y="426.5">in a plant or zone, skip some, merge copies,</text>
+<text class="b" x="314" y="441">and split each name into parts.</text>
+<rect x="314" y="450" width="46" height="14" rx="3" fill="#1565C0"/><text class="cp" x="337" y="460" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="366" y="460.5">None: the object names are the ids.</text>
+<rect x="28" y="498" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="508" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="508.5">Opens a few images of each kind and drafts the screen guide, the notes, and which screens</text>
+<text class="b" x="86" y="523">show which plant serves which zone.</text>
+<rect x="28" y="532" width="50" height="14" rx="3" fill="#E65100"/><text class="cp" x="53" y="542" text-anchor="middle" style="fill:#FFFFFF">BIM</text>
+<text class="b" x="86" y="542.5">Installation IFC: its system names compared with the plant list → the rule that matches</text>
+<text class="b" x="86" y="557">each system name to a plant.</text>
+<rect x="28" y="566" width="50" height="14" rx="3" fill="#455A64"/><text class="cp" x="53" y="576" text-anchor="middle" style="fill:#FFFFFF">DOCS</text>
+<text class="b" x="86" y="576.5">Listed in the profile: legends, function descriptions, a zone matrix.</text>
+<rect x="28" y="585.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="595.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="596"><tspan class="m">write-building-profile.ts</tspan> checks the profile against your data and writes</text>
+<text class="b" x="86" y="610.5"><tspan class="m">building-config.json</tspan>. Timeseries: row counts, skipped rows and empty cells. BACnet:</text>
+<text class="b" x="86" y="625">counts per rule, example splits, objects on several controllers and objects no rule places.</text>
+<line x1="588" y1="289.5" x2="632" y2="289.5" stroke="#F26B3A" stroke-width="2"/>
+<rect x="632" y="271.5" width="256" height="313.5" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<use xlink:href="#person" x="644" y="279.5" width="16" height="16"/>
+<text class="ht" x="666" y="292.5">You confirm</text>
+<text class="hb" x="644" y="311.5" font-weight="700">1.</text>
+<text class="hb" x="660" y="311.5"><tspan font-weight="700">Route,</tspan> the input list and the</text>
+<text class="hb" x="660" y="326">plant-abbreviation pattern.</text>
+<text class="hb" x="644" y="345.5" font-weight="700">2.</text>
+<text class="hb" x="660" y="345.5"><tspan font-weight="700">Timeseries:</tspan> the point-list format</text>
+<text class="hb" x="660" y="360">(delimiter, columns, empty-cell marker,</text>
+<text class="hb" x="660" y="374.5">rows to skip) and the naming rules, with</text>
+<text class="hb" x="660" y="389">the number of tags each pattern sorts as</text>
+<text class="hb" x="660" y="403.5">zone or plant.</text>
+<text class="hb" x="644" y="423" font-weight="700">3.</text>
+<text class="hb" x="660" y="423"><tspan font-weight="700">BACnet, one decision at a time:</tspan> device</text>
+<text class="hb" x="660" y="437.5">roles, name cleanup, each placement rule</text>
+<text class="hb" x="660" y="452">with example names split by it, each</text>
+<text class="hb" x="660" y="466.5">skip rule, each object on several</text>
+<text class="hb" x="660" y="481">controllers, and the name patterns no</text>
+<text class="hb" x="660" y="495.5">rule places (they become points of their</text>
+<text class="hb" x="660" y="510">controller).</text>
+<text class="hb" x="644" y="529.5" font-weight="700">4.</text>
+<text class="hb" x="660" y="529.5"><tspan font-weight="700">Screen guide</tspan>, notes, which screens show</text>
+<text class="hb" x="660" y="544">which plant serves which zone, and the</text>
+<text class="hb" x="660" y="558.5">rule for IFC system names, before image</text>
+<text class="hb" x="660" y="573">analysis starts.</text>
+<rect x="16" y="661" width="572" height="277.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<text class="t" x="28" y="684">Point dictionary</text>
+<text class="k" x="578" y="683" text-anchor="end">before point mapping · point-mapping skill</text>
+<line x1="16.75" y1="697.5" x2="587.25" y2="697.5" stroke="#E0E6EA"/>
+<rect x="28" y="704.5" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="714.5" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="715">Drafts each entry: meaning, Brick tags and source. Writes only through</text>
+<text class="b" x="86" y="729.5"><tspan class="m">write-point-dictionary-entry.ts</tspan>.</text>
+<rect x="28" y="738.5" width="50" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="53" y="748.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="749">Every point abbreviation, suffix and plant abbreviation gets an entry. Every frequent</text>
+<text class="b" x="86" y="763.5">description word gets an entry or is recorded as ignored. Each point's description is</text>
+<text class="b" x="86" y="778">checked against the meaning the documents give. BACnet: also the state names (On, Off, Auto</text>
+<text class="b" x="86" y="792.5">…), and unit spellings outside the standard BACnet unit names.</text>
+<rect x="28" y="801.5" width="50" height="14" rx="3" fill="#1565C0"/><text class="cp" x="53" y="811.5" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="86" y="812">Timeseries: each unit symbol (°C, m³/h) gets an entry.</text>
+<rect x="28" y="821" width="50" height="14" rx="3" fill="#455A64"/><text class="cp" x="53" y="831" text-anchor="middle" style="fill:#FFFFFF">DOCS</text>
+<text class="b" x="86" y="831.5">Legends and function descriptions: each meaning is quoted word for word, with file and</text>
+<text class="b" x="86" y="846">place (<tspan class="m">search-supporting-docs.ts</tspan>). Legend rows that are not in your data are recorded,</text>
+<text class="b" x="86" y="860.5">not entered.</text>
+<rect x="28" y="869.5" width="50" height="14" rx="3" fill="#C62828"/><text class="cp" x="53" y="879.5" text-anchor="middle" style="fill:#FFFFFF">BRICK</text>
+<text class="b" x="86" y="880">Every Brick tag in an entry must exist in the class index.</text>
+<rect x="28" y="889" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="899" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="899.5"><tspan class="m">review-dictionary-draft.ts</tspan> lists what is still open.</text>
+<text class="b" x="86" y="914"><tspan class="m">write-point-dictionary-entry.ts promote</tspan> writes <tspan class="m">point-dictionary.json</tspan> when nothing is</text>
+<text class="b" x="86" y="928.5">open.</text>
+<line x1="588" y1="687" x2="632" y2="687" stroke="#F26B3A" stroke-width="2"/>
+<rect x="632" y="669" width="256" height="347.5" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<use xlink:href="#person" x="644" y="677" width="16" height="16"/>
+<text class="ht" x="666" y="690">You confirm or change</text>
+<text class="hb" x="644" y="709" font-weight="700">1.</text>
+<text class="hb" x="660" y="709"><tspan font-weight="700">One at a time,</tspan> with the evidence:</text>
+<text class="hb" x="660" y="723.5">documents that contradict the data,</text>
+<text class="hb" x="660" y="738">entries changed from before, new and</text>
+<text class="hb" x="660" y="752.5">flagged entries, entries with no source,</text>
+<text class="hb" x="660" y="767">entries carried over with no fresh</text>
+<text class="hb" x="660" y="781.5">evidence, two words in one description</text>
+<text class="hb" x="660" y="796">that give different kinds of point, and</text>
+<text class="hb" x="660" y="810.5">legend rows, removed entries and ignored</text>
+<text class="hb" x="660" y="825">words not yet recorded.</text>
+<text class="hb" x="644" y="844.5" font-weight="700">2.</text>
+<text class="hb" x="660" y="844.5"><tspan font-weight="700">One table:</tspan> entries with only the data as</text>
+<text class="hb" x="660" y="859">source, no document.</text>
+<text class="hb" x="644" y="878.5" font-weight="700">3.</text>
+<text class="hb" x="660" y="878.5"><tspan font-weight="700">A count:</tspan> entries where documents and</text>
+<text class="hb" x="660" y="893">data agree.</text>
+<text class="hb" x="644" y="912.5" font-weight="700">4.</text>
+<text class="hb" x="660" y="912.5"><tspan font-weight="700">Open lists:</tspan> frequent words with no</text>
+<text class="hb" x="660" y="927">entry, and points where nothing says</text>
+<text class="hb" x="660" y="941.5">what kind of point it is (sensor,</text>
+<text class="hb" x="660" y="956">setpoint, command …) or what it</text>
+<text class="hb" x="660" y="970.5">measures.</text>
+<text class="hb" x="644" y="990" font-weight="700">5.</text>
+<text class="hb" x="660" y="990"><tspan font-weight="700">Later:</tspan> gaps from later steps come back</text>
+<text class="hb" x="660" y="1004.5">here the same way.</text>
+<rect x="16" y="1042.5" width="572" height="172.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="1049.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1064.5" text-anchor="middle">1</text>
+<text class="t" x="54" y="1065.5">Parse inputs</text>
+<text class="k" x="578" y="1064.5" text-anchor="end">no skill</text>
+<line x1="16.75" y1="1078.5" x2="587.25" y2="1078.5" stroke="#E0E6EA"/>
+<rect x="26" y="1090.5" width="272" height="46" rx="6" fill="#E0F2F1" stroke="#00897B"/>
+<rect x="34" y="1098" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="57" y="1108" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="1108.5">The point list is split into plant</text>
+<text class="b" x="34" y="1123">rows and zone rows.</text>
+<rect x="306" y="1090.5" width="272" height="46" rx="6" fill="#E8EAF6" stroke="#3949AB"/>
+<rect x="314" y="1098" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="337" y="1108" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="366" y="1108.5">No split: the device list and the</text>
+<text class="b" x="314" y="1123">object files are read as they are.</text>
+<rect x="28" y="1146" width="50" height="14" rx="3" fill="#E65100"/><text class="cp" x="53" y="1156" text-anchor="middle" style="fill:#FFFFFF">BIM</text>
+<text class="b" x="86" y="1156.5">Every storey and space of the architecture IFC, and room → plant from the installation</text>
+<text class="b" x="86" y="1171">IFCs.</text>
+<rect x="28" y="1180" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1190" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="1190.5"><tspan class="m">split-pointlist-csv.ts</tspan> splits the point list (timeseries). <tspan class="m">build-spatial-hierarchy.py</tspan></text>
+<text class="b" x="86" y="1205">reads the IFC files.</text>
+<rect x="16" y="1241" width="572" height="279" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="1248" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1263" text-anchor="middle">2</text>
+<text class="t" x="54" y="1264">Point mapping</text>
+<text class="k" x="578" y="1263" text-anchor="end">point-mapping skill</text>
+<line x1="16.75" y1="1277.5" x2="587.25" y2="1277.5" stroke="#E0E6EA"/>
+<rect x="28" y="1284.5" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="1294.5" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="1295">Runs the mapper. Takes abbreviations and suffixes with no entry, frequent words with no</text>
+<text class="b" x="86" y="1309.5">entry, words that give different kinds of point, and points with no kind or quantity back</text>
+<text class="b" x="86" y="1324">to the dictionary review. Then runs the mapper again, keeping the points you reviewed, and</text>
+<text class="b" x="86" y="1338.5"><tspan class="m">classify-all.ts</tspan>.</text>
+<rect x="26" y="1352" width="272" height="123.5" rx="6" fill="#E0F2F1" stroke="#00897B"/>
+<rect x="34" y="1359.5" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="57" y="1369.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="1370">Each row becomes a point of its plant</text>
+<text class="b" x="34" y="1384.5">or zone (<tspan class="m">map-plant-points.ts</tspan>,</text>
+<text class="b" x="34" y="1399"><tspan class="m">map-zone-points.ts</tspan>).</text>
+<rect x="34" y="1408" width="46" height="14" rx="3" fill="#1565C0"/><text class="cp" x="57" y="1418" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="86" y="1418.5">Joined by point id to the</text>
+<text class="b" x="34" y="1433"><tspan class="m">objects.json</tspan> names: id, object type and unit.</text>
+<text class="b" x="34" y="1447.5">Meter readings with no point-list row are added</text>
+<text class="b" x="34" y="1462">from <tspan class="m">objects.json</tspan>.</text>
+<rect x="306" y="1352" width="272" height="123.5" rx="6" fill="#E8EAF6" stroke="#3949AB"/>
+<rect x="314" y="1359.5" width="46" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="337" y="1369.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="366" y="1370">Each object is placed in a plant or</text>
+<text class="b" x="314" y="1384.5">zone by the profile's rules</text>
+<text class="b" x="314" y="1399">(<tspan class="m">map-bacnet-points.ts</tspan>). Skip rules drop some,</text>
+<text class="b" x="314" y="1413.5">merge rules join copies. Objects no rule places</text>
+<text class="b" x="314" y="1428">become points of their controller itself.</text>
+<rect x="314" y="1437" width="46" height="14" rx="3" fill="#1565C0"/><text class="cp" x="337" y="1447" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="366" y="1447.5">The object name is the id; type, unit</text>
+<text class="b" x="314" y="1462">and state names come from the object file.</text>
+<rect x="28" y="1485" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1495" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="1495.5"><tspan class="m">map-points.ts</tspan> runs the route's mapper. The dictionary gives each point the meaning of its</text>
+<text class="b" x="86" y="1510">abbreviation and suffix.</text>
+<rect x="16" y="1560" width="572" height="107.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="1567" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1582" text-anchor="middle">2</text>
+<text class="t" x="54" y="1583">Equipment from the tags</text>
+<text class="k" x="578" y="1582" text-anchor="end">equipment-inventory skill</text>
+<line x1="16.75" y1="1596.5" x2="587.25" y2="1596.5" stroke="#E0E6EA"/>
+<rect x="28" y="1603.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1613.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="1614"><tspan class="m">update-equipment.ts --bms</tspan> makes one item per device whose abbreviation the dictionary</text>
+<text class="b" x="86" y="1628.5">names as equipment (a fan, a valve …). Extra points of the same device, such as an alarm</text>
+<text class="b" x="86" y="1643">suffix, add no item. The item id is the point abbreviation (timeseries) or abbreviation and</text>
+<text class="b" x="86" y="1657.5">number (BACnet).</text>
+<rect x="16" y="1693.5" width="572" height="214.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="1700.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1715.5" text-anchor="middle">2</text>
+<text class="t" x="54" y="1716.5">Zone-to-room links</text>
+<text class="k" x="578" y="1715.5" text-anchor="end">point-mapping skill</text>
+<line x1="16.75" y1="1729.5" x2="587.25" y2="1729.5" stroke="#E0E6EA"/>
+<rect x="28" y="1737" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="1747" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="1747.5">Drafts the rule from zone ids to room numbers and reads the sources into rows. Writes the</text>
+<text class="b" x="86" y="1762">rule, the rows, the check flags and your decisions with <tspan class="m">write-zone-rooms.ts</tspan>.</text>
+<rect x="28" y="1771" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="1781" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="1781.5">Room overviews: floor, name, room number and use. Room-schematic headers: zone id and name.</text>
+<text class="b" x="86" y="1796">One image at a time, saved after each.</text>
+<rect x="28" y="1805" width="50" height="14" rx="3" fill="#E65100"/><text class="cp" x="53" y="1815" text-anchor="middle" style="fill:#FFFFFF">BIM</text>
+<text class="b" x="86" y="1815.5">Room numbers and names, storeys and space types (from step 1). Their names become</text>
+<text class="b" x="86" y="1830">dictionary words: room types, and storeys and spaces to leave out.</text>
+<rect x="28" y="1839" width="50" height="14" rx="3" fill="#455A64"/><text class="cp" x="53" y="1849" text-anchor="middle" style="fill:#FFFFFF">DOCS</text>
+<text class="b" x="86" y="1849.5">Zone matrix rows: zone, room, floor and name.</text>
+<rect x="28" y="1858.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1868.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="1869"><tspan class="m">match-zone-rooms.ts</tspan> checks each zone against the sources, lists what needs you</text>
+<text class="b" x="86" y="1883.5">(<tspan class="m">--review</tspan>), then writes the floors, rooms and zones. After step 3 it runs again and also</text>
+<text class="b" x="86" y="1898">checks that the zone's plant serves the room.</text>
+<line x1="588" y1="1719.5" x2="632" y2="1719.5" stroke="#F26B3A" stroke-width="2"/>
+<rect x="632" y="1701.5" width="256" height="299" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<use xlink:href="#person" x="644" y="1709.5" width="16" height="16"/>
+<text class="ht" x="666" y="1722.5">You confirm and decide</text>
+<text class="hb" x="644" y="1741.5" font-weight="700">1.</text>
+<text class="hb" x="660" y="1741.5"><tspan font-weight="700">The rule</tspan> from zone ids to room numbers,</text>
+<text class="hb" x="660" y="1756">with its hit rate and misses, and each</text>
+<text class="hb" x="660" y="1770.5">check's two computed flags: does it</text>
+<text class="hb" x="660" y="1785">count, is it independent. You can</text>
+<text class="hb" x="660" y="1799.5">override a flag, with a reason.</text>
+<text class="hb" x="644" y="1819" font-weight="700">2.</text>
+<text class="hb" x="660" y="1819"><tspan font-weight="700">Each listed zone, one at a time:</tspan> a check</text>
+<text class="hb" x="660" y="1833.5">disagrees, or no IFC room fits. Accept</text>
+<text class="hb" x="660" y="1848">the proposed room, pick another IFC</text>
+<text class="hb" x="660" y="1862.5">room, create one from the documents, or</text>
+<text class="hb" x="660" y="1877">leave it unlinked, with a reason.</text>
+<text class="hb" x="644" y="1896.5" font-weight="700">3.</text>
+<text class="hb" x="660" y="1896.5"><tspan font-weight="700">Rule-only zones:</tspan> no check fails, but</text>
+<text class="hb" x="660" y="1911">none confirms the room on its own. One</text>
+<text class="hb" x="660" y="1925.5">decision for the group.</text>
+<text class="hb" x="644" y="1945" font-weight="700">4.</text>
+<text class="hb" x="660" y="1945"><tspan font-weight="700">Stale decisions:</tspan> a rule, source or</text>
+<text class="hb" x="660" y="1959.5">dictionary change altered what an answer</text>
+<text class="hb" x="660" y="1974">was based on. The zone is listed again,</text>
+<text class="hb" x="660" y="1988.5">never relinked silently.</text>
+<rect x="16" y="2026.5" width="572" height="229" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="2033.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2048.5" text-anchor="middle">3</text>
+<text class="t" x="54" y="2049.5">Connections</text>
+<text class="k" x="578" y="2048.5" text-anchor="end">building-connections skill</text>
+<line x1="16.75" y1="2062.5" x2="587.25" y2="2062.5" stroke="#E0E6EA"/>
+<rect x="28" y="2070" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="2080" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="2080.5">Reads one image at a time and saves after each (<tspan class="m">update-connections.ts</tspan>). For each zone</text>
+<text class="b" x="86" y="2095">whose plant only one source shows, re-reads the screenshot, decides, and tells you what it</text>
+<text class="b" x="86" y="2109.5">decided.</text>
+<rect x="28" y="2118.5" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="2128.5" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="2129">Plant overviews and plant schematics: which plant serves which plant, and which plants are</text>
+<text class="b" x="86" y="2143.5">part of another plant.</text>
+<rect x="28" y="2152.5" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="2162.5" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="2163">Floorplan colours or the room schematic's plant button, as the profile says: which plant</text>
+<text class="b" x="86" y="2177.5">serves which zone.</text>
+<rect x="28" y="2186.5" width="50" height="14" rx="3" fill="#E65100"/><text class="cp" x="53" y="2196.5" text-anchor="middle" style="fill:#FFFFFF">BIM</text>
+<text class="b" x="86" y="2197">Installation IFC systems: which plant serves which room, and through the zone-to-room links</text>
+<text class="b" x="86" y="2211.5">which zone.</text>
+<rect x="28" y="2220.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="2230.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="2231"><tspan class="m">reconcile-feeds-ifc.py</tspan> compares, per plant, the zones it serves in the IFC with the zones</text>
+<text class="b" x="86" y="2245.5">it serves in the screenshots.</text>
+<rect x="16" y="2281.5" width="572" height="287" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="2288.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2303.5" text-anchor="middle">4</text>
+<text class="t" x="54" y="2304.5">Equipment from the screenshots</text>
+<text class="k" x="578" y="2303.5" text-anchor="end">equipment-inventory skill</text>
+<line x1="16.75" y1="2317.5" x2="587.25" y2="2317.5" stroke="#E0E6EA"/>
+<rect x="28" y="2325" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="2335" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="2335.5">One image at a time, saved after each (<tspan class="m">update-equipment.ts</tspan>). On each plant it first</text>
+<text class="b" x="86" y="2350">proposes the positions in the duct or pipe (supply, return …) and each medium (hot water,</text>
+<text class="b" x="86" y="2364.5">chilled water …), with its reasons, and writes them only after you confirm. Then it reruns</text>
+<text class="b" x="86" y="2379">the dictionary review with the image positions. A dictionary entry that tags all its points</text>
+<text class="b" x="86" y="2393.5">as one stream (supply, return …), while the images put them on different streams, goes back</text>
+<text class="b" x="86" y="2408">to the review.</text>
+<rect x="28" y="2417" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="2427" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="2427.5">Plant schematics: the plant's title, type, controller and station; each piece of equipment,</text>
+<text class="b" x="86" y="2442">its position in the duct or pipe and its medium.</text>
+<rect x="28" y="2451" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="2461" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="2461.5">Room schematics: the zone's dampers, valves and sensors, and the fields at the top of the</text>
+<text class="b" x="86" y="2476">screen.</text>
+<rect x="28" y="2485" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#37474F" stroke-dasharray="3 2"/><text class="cp" x="53" y="2495" text-anchor="middle" style="fill:#37474F">BATCH</text>
+<text class="b" x="86" y="2495.5">Optional: <tspan class="m">run-equipment-extraction.ts</tspan> runs <tspan class="m">claude -p</tspan> on each image without you. It</text>
+<text class="b" x="86" y="2510">writes equipment without positions or medium, and skips plants whose positions are already</text>
+<text class="b" x="86" y="2524.5">confirmed. Your confirmations follow in your session.</text>
+<rect x="28" y="2533.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="2543.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="2544"><tspan class="m">validate-ductpath.ts</tspan> checks each air position against the supply or extract marker in the</text>
+<text class="b" x="86" y="2558.5">equipment's name. <tspan class="m">audit-classes.ts</tspan> checks each medium against the equipment's class.</text>
+<line x1="588" y1="2307.5" x2="632" y2="2307.5" stroke="#F26B3A" stroke-width="2"/>
+<rect x="632" y="2289.5" width="256" height="362" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<use xlink:href="#person" x="644" y="2297.5" width="16" height="16"/>
+<text class="ht" x="666" y="2310.5">You confirm or correct</text>
+<text class="hb" x="644" y="2329.5" font-weight="700">1.</text>
+<text class="hb" x="660" y="2329.5"><tspan font-weight="700">Per plant, before anything is written:</tspan></text>
+<text class="hb" x="660" y="2344">the positions in the duct or pipe and</text>
+<text class="hb" x="660" y="2358.5">each medium.</text>
+<text class="hb" x="644" y="2378" font-weight="700">2.</text>
+<text class="hb" x="660" y="2378"><tspan font-weight="700">Air:</tspan> intake, supply, return, exhaust</text>
+<text class="hb" x="660" y="2392.5">(and preheat), read from the</text>
+<text class="hb" x="660" y="2407">heat-recovery unit.</text>
+<text class="hb" x="644" y="2426.5" font-weight="700">3.</text>
+<text class="hb" x="660" y="2426.5"><tspan font-weight="700">Water:</tspan> read from the exchanger or meter,</text>
+<text class="hb" x="660" y="2441">else the loop's pump and valve or mixing</text>
+<text class="hb" x="660" y="2455.5">shunt. Supply and return on a plain or</text>
+<text class="hb" x="660" y="2470">mixing loop; an exchanger's primary and</text>
+<text class="hb" x="660" y="2484.5">secondary sides; a hot-water tank's coil</text>
+<text class="hb" x="660" y="2499">is primary; supply, circulation return</text>
+<text class="hb" x="660" y="2513.5">and make-up on the domestic hot-water</text>
+<text class="hb" x="660" y="2528">side.</text>
+<text class="hb" x="644" y="2547.5" font-weight="700">4.</text>
+<text class="hb" x="660" y="2547.5"><tspan font-weight="700">Medium</tspan> of each pump, tank, valve, coil</text>
+<text class="hb" x="660" y="2562">and exchanger: hot, chilled, domestic,</text>
+<text class="hb" x="660" y="2576.5">cold or condenser.</text>
+<text class="hb" x="644" y="2596" font-weight="700">5.</text>
+<text class="hb" x="660" y="2596"><tspan font-weight="700">Also:</tspan> the link between a screen label</text>
+<text class="hb" x="660" y="2610.5">and its point-list id, and each medium</text>
+<text class="hb" x="660" y="2625">the audit finds contradicting the</text>
+<text class="hb" x="660" y="2639.5">equipment's class.</text>
+<rect x="16" y="2677.5" width="572" height="340.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="2684.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2699.5" text-anchor="middle">5</text>
+<text class="t" x="54" y="2700.5">Classification</text>
+<text class="k" x="578" y="2699.5" text-anchor="end">brick-assign skill</text>
+<line x1="16.75" y1="2713.5" x2="587.25" y2="2713.5" stroke="#E0E6EA"/>
+<rect x="28" y="2721" width="50" height="14" rx="3" fill="#37474F"/><text class="cp" x="53" y="2731" text-anchor="middle" style="fill:#FFFFFF">AGENT</text>
+<text class="b" x="86" y="2731.5">For each group of review points with the same flags and the same deciding dictionary</text>
+<text class="b" x="86" y="2746">entries, proposes one verdict. Writes it with <tspan class="m">assign-brick.ts</tspan>, or fixes the dictionary</text>
+<text class="b" x="86" y="2760.5">entry behind it through the dictionary review. After a dictionary change:</text>
+<text class="b" x="86" y="2775"><tspan class="m">compare-classes-by-cause.ts</tspan> groups the class changes, <tspan class="m">apply-class-verdicts.ts</tspan> applies</text>
+<text class="b" x="86" y="2789.5">your verdicts.</text>
+<rect x="28" y="2798.5" width="50" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="53" y="2808.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="2809">Through the dictionary: the point abbreviation and suffix of each tag and the description</text>
+<text class="b" x="86" y="2823.5">words (BACnet: also state names), from step 2.</text>
+<rect x="28" y="2832.5" width="50" height="14" rx="3" fill="#1565C0"/><text class="cp" x="53" y="2842.5" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="86" y="2843">The unit gives what is measured. The object type only checks that on/off points and</text>
+<text class="b" x="86" y="2857.5">measured values get matching classes.</text>
+<rect x="28" y="2866.5" width="50" height="14" rx="3" fill="#6A1B9A"/><text class="cp" x="53" y="2876.5" text-anchor="middle" style="fill:#FFFFFF">BMS</text>
+<text class="b" x="86" y="2877">From step 4: each item's confirmed position and medium, and the plant's title and</text>
+<text class="b" x="86" y="2891.5">equipment, which check the plant class. From step 3: which plant serves which, so a plant</text>
+<text class="b" x="86" y="2906">with no water type of its own (hot, chilled, domestic) takes it from the plant that serves</text>
+<text class="b" x="86" y="2920.5">it.</text>
+<rect x="28" y="2929.5" width="50" height="14" rx="3" fill="#E65100"/><text class="cp" x="53" y="2939.5" text-anchor="middle" style="fill:#FFFFFF">BIM</text>
+<text class="b" x="86" y="2940">Room and storey names, through dictionary words, give the room and floor classes.</text>
+<rect x="28" y="2949" width="50" height="14" rx="3" fill="#C62828"/><text class="cp" x="53" y="2959" text-anchor="middle" style="fill:#FFFFFF">BRICK</text>
+<text class="b" x="86" y="2959.5">The class index: the class whose Brick tags best match the point's tags.</text>
+<rect x="28" y="2968.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="2978.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="2979"><tspan class="m">classify-all.ts</tspan> decides, for each point, what kind of point it is (sensor, setpoint,</text>
+<text class="b" x="86" y="2993.5">command …), what it measures, the medium and the flow, and classifies points, plants,</text>
+<text class="b" x="86" y="3008">equipment, zones, floors and rooms. <tspan class="m">group-low-confidence.ts</tspan> groups the points to review.</text>
+<line x1="588" y1="2703.5" x2="632" y2="2703.5" stroke="#F26B3A" stroke-width="2"/>
+<rect x="632" y="2685.5" width="256" height="289" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<use xlink:href="#person" x="644" y="2693.5" width="16" height="16"/>
+<text class="ht" x="666" y="2706.5">You review</text>
+<text class="hb" x="644" y="2725.5" font-weight="700">1.</text>
+<text class="hb" x="660" y="2725.5"><tspan font-weight="700">Each review group:</tspan> points flagged for</text>
+<text class="hb" x="660" y="2740">review, with low confidence, or where</text>
+<text class="hb" x="660" y="2754.5">another class would keep something this</text>
+<text class="hb" x="660" y="2769">one drops, grouped by their flags and</text>
+<text class="hb" x="660" y="2783.5">the dictionary entries that decided</text>
+<text class="hb" x="660" y="2798">them. The agent finds the cause and</text>
+<text class="hb" x="660" y="2812.5">proposes a verdict: keep the class, a</text>
+<text class="hb" x="660" y="2827">more specific class, a dictionary fix,</text>
+<text class="hb" x="660" y="2841.5">or ambiguous. You confirm or correct it,</text>
+<text class="hb" x="660" y="2856">a few groups per round.</text>
+<text class="hb" x="644" y="2875.5" font-weight="700">2.</text>
+<text class="hb" x="660" y="2875.5"><tspan font-weight="700">After a dictionary change:</tspan> the class</text>
+<text class="hb" x="660" y="2890">changes, grouped by old class, new class</text>
+<text class="hb" x="660" y="2904.5">and the entry that decided them. You</text>
+<text class="hb" x="660" y="2919">judge each group better or worse.</text>
+<text class="hb" x="660" y="2933.5">Reviewed points in a better group take</text>
+<text class="hb" x="660" y="2948">the new class; a worse group goes back</text>
+<text class="hb" x="660" y="2962.5">to the dictionary.</text>
+<rect x="16" y="3044" width="572" height="166" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="25" y="3051" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="3066" text-anchor="middle">6</text>
+<text class="t" x="54" y="3067">Generate data model</text>
+<text class="k" x="578" y="3066" text-anchor="end">generate-ttl skill</text>
+<line x1="16.75" y1="3080.5" x2="587.25" y2="3080.5" stroke="#E0E6EA"/>
+<rect x="28" y="3087.5" width="50" height="14" rx="3" fill="#2E7D32"/><text class="cp" x="53" y="3097.5" text-anchor="middle" style="fill:#FFFFFF">TAGS</text>
+<text class="b" x="86" y="3098">BACnet: <tspan class="m">devices.csv</tspan> gives the devices, and each device is checked against it.</text>
+<rect x="28" y="3107" width="50" height="14" rx="3" fill="#1565C0"/><text class="cp" x="53" y="3117" text-anchor="middle" style="fill:#FFFFFF">SQL IDS</text>
+<text class="b" x="86" y="3117.5">Each point's database id becomes its link to its time series, and each link is checked</text>
+<text class="b" x="86" y="3132">against the ids from step 2.</text>
+<rect x="28" y="3141" width="50" height="14" rx="3" fill="#C62828"/><text class="cp" x="53" y="3151" text-anchor="middle" style="fill:#FFFFFF">BRICK</text>
+<text class="b" x="86" y="3151.5">The class index: the classes in the model, each checked to exist and not be deprecated.</text>
+<rect x="28" y="3160.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="3170.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
+<text class="b" x="86" y="3171"><tspan class="m">generate-ttl.ts</tspan> writes <tspan class="m">outputs/building.ttl</tspan> from the files of steps 2 to 5.</text>
+<text class="b" x="86" y="3185.5"><tspan class="m">validate-ttl.ts</tspan> checks Turtle syntax, classes, relations and references.</text>
+<text class="b" x="86" y="3200"><tspan class="m">validate-refs.ts</tspan> checks the time-series links and, on BACnet, the devices.</text>
+<path d="M588 1291H612" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M588 1811.5H612" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M588 2331.5H612" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M588 2727.5H612" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M612 2727.5V691H591" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ad)"/>
+<text class="lp" transform="translate(608 991) rotate(-90)" text-anchor="middle">back to the dictionary review</text>
+<path d="M588 2141H626V1894H591" fill="none" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ad)"/>
+<text class="lp" transform="translate(622 2017.5) rotate(-90)" text-anchor="middle">runs again</text>
+<rect x="32" y="3236" width="540" height="56" rx="28" fill="#F26B3A"/>
+<text x="94.4" y="3260" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;fill:#FFFFFF">Query</text>
+<rect x="135.10000000000002" y="3245" width="108" height="21" rx="4" fill="#FFFFFF"/>
+<text x="189.10000000000002" y="3260" text-anchor="middle" style="font-family:Consolas,'Courier New',monospace;font-size:13px;font-weight:700;fill:#F26B3A">building.ttl</text>
+<text x="249.10000000000002" y="3260" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;fill:#FFFFFF">directly with SPARQL, or import it into a triple</text>
+<text x="302" y="3280" text-anchor="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;fill:#FFFFFF">store such as GraphDB for scalable storage and reasoning.</text>
+</g>
+</svg>

@@ -284,9 +284,9 @@ buildings it was built on:
 A symbol without a label gets no equipment item from the image, because an id is never made up. If that
 equipment has points, its item comes from the tags; if not, it is only noted in the building's notes.
 
-Example plant schematic of ventilation unit `VE01` (a placeholder drawing):
+Example plant schematic of ventilation unit `VE01`:
 
-<img src="docs/examples/bms-plant-schematic.svg" width="720" alt="Placeholder: plant schematic of ventilation unit VE01">
+<img src="docs/ve-diagram.png" width="720" alt="Plant schematic of ventilation unit VE01">
 
 <br>
 
