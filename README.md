@@ -42,7 +42,7 @@ proposes it from your files, and you confirm it.
 | | Timeseries route | BACnet route |
 |---|---|---|
 | Point data (TAGS) | A point-list CSV from the BMS | A device list and one object file per device |
-| Ids (SQL IDS) | The registry of the time-series database: the list of its ids | The object names in the scrape |
+| Ids (SQL IDs) | The registry of the time-series database: the list of its ids | The object names in the scrape |
 | How a tag is formed | The plant column and the point column | The object name; rules in the building profile (the building's settings file) split it |
 | Units | From the registry, as symbols (`°C`) | In the object files, as BACnet unit names (`degrees-celsius`) |
 | Data link in the semantic data model | `ref:TimeseriesReference` | `ref:BACnetReference` |
@@ -113,7 +113,7 @@ building id.
   <tr><td>Formats</td><td><code>.csv</code>, UTF-8.</td></tr>
   <tr><td>Place in</td><td>Timeseries: <code>data/&lt;buildingId&gt;/inputs/&lt;buildingId&gt;_pointlist.csv</code>. BACnet: <code>data/&lt;buildingId&gt;/inputs/devices.csv</code> and the object files in <code>data/&lt;buildingId&gt;/inputs/objects/</code>.</td></tr>
   <tr><td>Required</td><td>Yes. Without it, the workflow has no points to classify.</td></tr>
-  <tr><td>Depends on</td><td>Two files the agent drafts with you. The building profile (<code>building-config.json</code>) records where your files are and how your tags split into plant or zone and point. The point dictionary (<code>point-dictionary.json</code>) lists every abbreviation and word in your tags and descriptions. Each entry has its meaning, the Brick tags it gives and the source of that meaning. On the timeseries route, SQL IDS supplies the units.</td></tr>
+  <tr><td>Depends on</td><td>Two files the agent drafts with you. The building profile (<code>building-config.json</code>) records where your files are and how your tags split into plant or zone and point. The point dictionary (<code>point-dictionary.json</code>) lists every abbreviation and word in your tags and descriptions. Each entry has its meaning, the Brick tags it gives and the source of that meaning. On the timeseries route, SQL IDs supplies the units.</td></tr>
   <tr><td>Must contain</td><td>It depends on the route. You supply one of the two, not both. Timeseries: a point-list CSV with a plant, a point and a description column. BACnet: a device list and one object file per device. The details for each route follow below.</td></tr>
 </table>
 
@@ -130,7 +130,7 @@ those *Brick tags*.
   `Z_101_TR1`.
 - A good description column is strongly advised. The agent reads its words to decode the point.
 - Zone ids must be easy to tell from plant ids, for example all zone ids start with `Z_`.
-- Units are not needed here. They come from SQL IDS.
+- Units are not needed here. They come from SQL IDs.
 
 The examples use Danish BMS abbreviations. Plants: `VE` ventilation unit (*ventilationsanlæg*), `VA`
 heating plant (*varmeanlæg*), `RAD` radiator circuit (*radiatorkreds*). `UC01` is a controller
