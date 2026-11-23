@@ -632,13 +632,14 @@ The index tools have been tested only on the version provided.
 
 ## Licence and credits
 
+- **This repository:** *licence to be added.*
 - **Brick** (`ontologies/Brick_nightly.ttl` and the two index files made from it): BSD 3-Clause License,
   Copyright (c) 2016-2026, Brick Consortium, Inc. See [BrickSchema/Brick](https://github.com/BrickSchema/Brick).
 - **RealEstateCore** (part of the Brick nightly version): BSD 3-Clause License, Copyright (c) 2022, RealEstateCore
   Consortium. See [RealEstateCore/rec](https://github.com/RealEstateCore/rec). If you use REC in research, its
   authors ask you to cite: Hammar, K., Wallin, E. O., Karlberg, P., Hälleberg, D. (2019). *The RealEstateCore
-  Ontology*. ISWC 2019. https://doi.org/10.1007/978-3-030-30796-7_9
-- **QUDT** (the unit identifiers in the semantic data model): Creative Commons Attribution 4.0 International (CC BY 4.0).
+  Ontology*. ISWC 2019, pp. 130–145. https://doi.org/10.1007/978-3-030-30796-7_9
+- **QUDT** (the unit identifiers in the semantic data model): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
   See [qudt.org](https://www.qudt.org/).
 - PropValueAB och FabegeAB's mapping guide for Brick providing valuable insight. 
 - Developed by the Danish Technological Institute (DTI) as part of an Energy Cluster Denmark project.
