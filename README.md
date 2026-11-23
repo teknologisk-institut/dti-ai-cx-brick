@@ -60,8 +60,8 @@ route).
   <tr>
     <td align="center"><img src="docs/icons/tags-solid.svg" width="40" alt="TAGS"></td>
     <td><b><a href="#input-tags">TAGS</a></b></td>
-    <td align="center"><img src="docs/icons/sql-ids-solid.svg" width="40" alt="SQL IDS"></td>
-    <td><b><a href="#input-sql-ids">SQL IDS</a></b></td>
+    <td align="center"><img src="docs/icons/sql-ids-solid.svg" width="40" alt="SQL IDs"></td>
+    <td><b><a href="#input-sql-ids">SQL IDs</a></b></td>
   </tr>
   <tr>
     <td></td>
