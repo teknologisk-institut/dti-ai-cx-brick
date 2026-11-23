@@ -600,7 +600,7 @@ The index tools have been tested only on the version provided.
 4. Go on step by step. The agent stops when it needs your answer. Later requests are, for example, *Classify all
    entities for `<buildingId>`* and *Generate TTL for `<buildingId>`*.
 
-## Limits
+## Limitations
 
 - The workflow was built and tested on two buildings, one per route. For another building, the agent writes
   new rules in the building profile (how tags split, how zone ids look, how BACnet object names are read) and
