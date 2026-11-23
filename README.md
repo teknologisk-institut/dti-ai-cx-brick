@@ -28,7 +28,7 @@ building; Turtle is a text format for linked data. You can query the `.ttl` file
 query language for linked data, for example with Apache Jena or Python's rdflib, or import it
 into a graph database such as GraphDB.
 
-Project design:
+Project design diagram:
 <p align="center">
   <img src="docs/design.png" alt="Project design" width="600">
 </p>
