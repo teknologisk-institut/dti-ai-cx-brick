@@ -30,7 +30,7 @@ into a graph database such as GraphDB.
 
 Project design:
 
-![Project Design Diagram](docs/design.png)
+<img src="docs/design.png" alt="Design" width="300">
 
 ## Two data routes
 
@@ -272,7 +272,7 @@ that serves it connect to the zone. The semantic data model links the zone to ea
 BMS screens differ from building to building. These are the kinds the pipeline reads, as seen in the two
 buildings it was built on:
 
-| Screen | What it shows | What the pipeline takes |
+| BMS screen | What it shows | What the pipeline takes |
 |---|---|---|
 | Plant overviews | The plants, often one tab or table per system type, sometimes with live values. | Which plants exist and which belong together. |
 | Room overviews | The zones, often one tab per floor, with zone name and, if present, room number and use. | Links from zones to rooms, and zone names. |
@@ -284,7 +284,7 @@ buildings it was built on:
 A symbol without a label gets no equipment item from the image, because an id is never made up. If that
 equipment has points, its item comes from the tags; if not, it is only noted in the building's notes.
 
-Example plant schematic of ventilation unit `VE01`:
+Example plant schematic of ventilation unit:
 
 <img src="docs/ve-diagram.png" width="720" alt="Plant schematic of ventilation unit VE01">
 
