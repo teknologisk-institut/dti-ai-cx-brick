@@ -84,7 +84,7 @@ route).
   <tr>
     <td align="center"><img src="docs/icons/docs-solid.svg" width="40" alt="DOCS"></td>
     <td><b><a href="#input-docs">DOCS</a></b></td>
-    <td align="center"><img src="docs/icons/brick-solid.svg" width="40" alt="BRICK"></td>
+    <td align="center"><img src="docs/icons/brick-solid.svg" width="40" alt="BRICK/REC"></td>
     <td><b><a href="#input-brick">BRICK</a></b></td>
   </tr>
   <tr>
