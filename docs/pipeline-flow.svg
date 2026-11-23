@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="3430" viewBox="0 0 900 3430" role="img" aria-label="Pipeline flow: the steps from the building profile to the validated model, the two data routes, how each step uses the inputs, where the agent, the tools and the batch runner work, and where you confirm or decide">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="3430" viewBox="0 0 900 3430" role="img" aria-label="Workflow: the steps from the building profile to the validated semantic data model, the two data routes, how each step uses the inputs, where the agent, the tools and the batch runner work, and where you confirm or decide">
 <style>
 text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 .t { font-size: 13.5px; font-weight: 700; fill: #263238; }
@@ -22,15 +22,15 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#78909C"/></marker>
 </defs>
 <rect x="0" y="0" width="900" height="3430" fill="#FFFFFF"/>
-<rect x="16" y="12" width="868" height="136" rx="8" fill="#FFFFFF" stroke="#CFD8DC"/>
+<rect x="16.5" y="12.5" width="867" height="135" rx="8" fill="#FFFFFF" stroke="#CFD8DC"/>
 <text class="lh" x="30" y="32">BOXES AND LINES</text>
 <text class="lh" x="250" y="32">ROUTES</text>
 <text class="lh" x="410" y="32">WHO DOES THE WORK</text>
-<rect x="30" y="43" width="26" height="14" rx="3" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/><text class="lg" x="64" y="54">A step</text>
-<rect x="30" y="63" width="26" height="14" rx="3" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/><text class="lg" x="64" y="74">You confirm or decide</text>
+<rect x="30.5" y="43.5" width="25" height="13" rx="3" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/><text class="lg" x="64" y="54">A step</text>
+<rect x="30.5" y="63.5" width="25" height="13" rx="3" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/><text class="lg" x="64" y="74">You confirm or decide</text>
 <line x1="30" y1="90" x2="56" y2="90" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ad)"/><text class="lg" x="64" y="94">Goes back to an earlier step</text>
-<rect x="250" y="43" width="26" height="14" rx="3" fill="#E0F2F1" stroke="#00897B" stroke-width="1.5"/><text class="lg" x="284" y="54">Timeseries route</text>
-<rect x="250" y="63" width="26" height="14" rx="3" fill="#E8EAF6" stroke="#3949AB" stroke-width="1.5"/><text class="lg" x="284" y="74">BACnet route</text>
+<rect x="250.5" y="43.5" width="25" height="13" rx="3" fill="#E0F2F1" stroke="#00897B" stroke-width="1"/><text class="lg" x="284" y="54">Timeseries route</text>
+<rect x="250.5" y="63.5" width="25" height="13" rx="3" fill="#E8EAF6" stroke="#3949AB" stroke-width="1"/><text class="lg" x="284" y="74">BACnet route</text>
 <rect x="410" y="44" width="46" height="14" rx="3" fill="#37474F"/><text class="cp" x="433" y="54" text-anchor="middle" style="fill:#FFFFFF">AGENT</text><text class="lg" x="466" y="54">Claude Code with the skills, in your session</text>
 <rect x="410" y="64" width="46" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="433" y="74" text-anchor="middle" style="fill:#37474F">TOOL</text><text class="lg" x="466" y="74">A script with fixed rules</text>
 <rect x="410" y="84" width="46" height="14" rx="3" fill="#FFFFFF" stroke="#37474F" stroke-dasharray="3 2"/><text class="cp" x="433" y="94" text-anchor="middle" style="fill:#37474F">BATCH</text><text class="lg" x="466" y="94">claude -p on each image, without you</text>
@@ -64,7 +64,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <line x1="302" y1="3210" x2="302" y2="3234" stroke="#546E7A" stroke-width="1.5" marker-end="url(#a)"/>
 <text class="k" x="292" y="1546" text-anchor="end">the routes join</text>
 <text class="k" x="312" y="1546">same tools from here; BACnet extras as noted</text>
-<rect x="16" y="64" width="572" height="141.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="16.5" y="64.5" width="571" height="141" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1" stroke-dasharray="6 4"/>
 <text class="t" x="28" y="87">One-time setup: the Brick indexes, shared by all buildings</text>
 <text class="k" x="578" y="86" text-anchor="end">no skill</text>
 <line x1="16.75" y1="100.5" x2="587.25" y2="100.5" stroke="#E0E6EA"/>
@@ -76,7 +76,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="166.5">tags, read by the tools. <tspan class="m">build-brick-relationship-index.ts</tspan> writes the relationship</text>
 <text class="b" x="86" y="181">index, read by the agent through the skills. Both indexes are provided; run the two tools</text>
 <text class="b" x="86" y="195.5">again when you use a newer Brick version.</text>
-<rect x="16" y="263.5" width="572" height="371.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="263.5" width="571" height="371" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="270.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="285.5" text-anchor="middle">0</text>
 <text class="t" x="54" y="286.5">Inventory: the building profile</text>
 <text class="k" x="578" y="285.5" text-anchor="end">point-mapping skill</text>
@@ -119,8 +119,8 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="596"><tspan class="m">write-building-profile.ts</tspan> checks the profile against your data and writes</text>
 <text class="b" x="86" y="610.5"><tspan class="m">building-config.json</tspan>. Timeseries: row counts, skipped rows and empty cells. BACnet:</text>
 <text class="b" x="86" y="625">counts per rule, example splits, objects on several controllers and objects no rule places.</text>
-<line x1="588" y1="289.5" x2="632" y2="289.5" stroke="#F26B3A" stroke-width="2"/>
-<rect x="632" y="271.5" width="256" height="313.5" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<line x1="588" y1="289.5" x2="632" y2="289.5" stroke="#F26B3A" stroke-width="1"/>
+<rect x="632.5" y="271.5" width="255" height="313" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/>
 <use xlink:href="#person" x="644" y="279.5" width="16" height="16"/>
 <text class="ht" x="666" y="292.5">You confirm</text>
 <text class="hb" x="644" y="311.5" font-weight="700">1.</text>
@@ -145,7 +145,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="hb" x="660" y="544">which plant serves which zone, and the</text>
 <text class="hb" x="660" y="558.5">rule for IFC system names, before image</text>
 <text class="hb" x="660" y="573">analysis starts.</text>
-<rect x="16" y="661" width="572" height="277.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="661.5" width="571" height="277" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <text class="t" x="28" y="684">Point dictionary</text>
 <text class="k" x="578" y="683" text-anchor="end">before point mapping · point-mapping skill</text>
 <line x1="16.75" y1="697.5" x2="587.25" y2="697.5" stroke="#E0E6EA"/>
@@ -169,8 +169,8 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="899.5"><tspan class="m">review-dictionary-draft.ts</tspan> lists what is still open.</text>
 <text class="b" x="86" y="914"><tspan class="m">write-point-dictionary-entry.ts promote</tspan> writes <tspan class="m">point-dictionary.json</tspan> when nothing is</text>
 <text class="b" x="86" y="928.5">open.</text>
-<line x1="588" y1="687" x2="632" y2="687" stroke="#F26B3A" stroke-width="2"/>
-<rect x="632" y="669" width="256" height="347.5" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<line x1="588" y1="687.5" x2="632" y2="687.5" stroke="#F26B3A" stroke-width="1"/>
+<rect x="632.5" y="669.5" width="255" height="347" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/>
 <use xlink:href="#person" x="644" y="677" width="16" height="16"/>
 <text class="ht" x="666" y="690">You confirm or change</text>
 <text class="hb" x="644" y="709" font-weight="700">1.</text>
@@ -198,7 +198,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="hb" x="644" y="990" font-weight="700">5.</text>
 <text class="hb" x="660" y="990"><tspan font-weight="700">Later:</tspan> gaps from later steps come back</text>
 <text class="hb" x="660" y="1004.5">here the same way.</text>
-<rect x="16" y="1042.5" width="572" height="172.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="1042.5" width="571" height="172" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="1049.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1064.5" text-anchor="middle">1</text>
 <text class="t" x="54" y="1065.5">Parse inputs</text>
 <text class="k" x="578" y="1064.5" text-anchor="end">no skill</text>
@@ -217,7 +217,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <rect x="28" y="1180" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1190" text-anchor="middle" style="fill:#37474F">TOOL</text>
 <text class="b" x="86" y="1190.5"><tspan class="m">split-pointlist-csv.ts</tspan> splits the point list (timeseries). <tspan class="m">build-spatial-hierarchy.py</tspan></text>
 <text class="b" x="86" y="1205">reads the IFC files.</text>
-<rect x="16" y="1241" width="572" height="279" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="1241.5" width="571" height="278" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="1248" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1263" text-anchor="middle">2</text>
 <text class="t" x="54" y="1264">Point mapping</text>
 <text class="k" x="578" y="1263" text-anchor="end">point-mapping skill</text>
@@ -250,7 +250,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <rect x="28" y="1485" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="1495" text-anchor="middle" style="fill:#37474F">TOOL</text>
 <text class="b" x="86" y="1495.5"><tspan class="m">map-points.ts</tspan> runs the route's mapper. The dictionary gives each point the meaning of its</text>
 <text class="b" x="86" y="1510">abbreviation and suffix.</text>
-<rect x="16" y="1560" width="572" height="107.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="1560.5" width="571" height="107" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="1567" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1582" text-anchor="middle">2</text>
 <text class="t" x="54" y="1583">Equipment from the tags</text>
 <text class="k" x="578" y="1582" text-anchor="end">equipment-inventory skill</text>
@@ -260,7 +260,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="1628.5">names as equipment (a fan, a valve …). Extra points of the same device, such as an alarm</text>
 <text class="b" x="86" y="1643">suffix, add no item. The item id is the point abbreviation (timeseries) or abbreviation and</text>
 <text class="b" x="86" y="1657.5">number (BACnet).</text>
-<rect x="16" y="1693.5" width="572" height="214.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="1693.5" width="571" height="214" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="1700.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="1715.5" text-anchor="middle">2</text>
 <text class="t" x="54" y="1716.5">Zone-to-room links</text>
 <text class="k" x="578" y="1715.5" text-anchor="end">point-mapping skill</text>
@@ -280,8 +280,8 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="1869"><tspan class="m">match-zone-rooms.ts</tspan> checks each zone against the sources, lists what needs you</text>
 <text class="b" x="86" y="1883.5">(<tspan class="m">--review</tspan>), then writes the floors, rooms and zones. After step 3 it runs again and also</text>
 <text class="b" x="86" y="1898">checks that the zone's plant serves the room.</text>
-<line x1="588" y1="1719.5" x2="632" y2="1719.5" stroke="#F26B3A" stroke-width="2"/>
-<rect x="632" y="1701.5" width="256" height="299" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<line x1="588" y1="1719.5" x2="632" y2="1719.5" stroke="#F26B3A" stroke-width="1"/>
+<rect x="632.5" y="1701.5" width="255" height="298" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/>
 <use xlink:href="#person" x="644" y="1709.5" width="16" height="16"/>
 <text class="ht" x="666" y="1722.5">You confirm and decide</text>
 <text class="hb" x="644" y="1741.5" font-weight="700">1.</text>
@@ -305,7 +305,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="hb" x="660" y="1959.5">dictionary change altered what an answer</text>
 <text class="hb" x="660" y="1974">was based on. The zone is listed again,</text>
 <text class="hb" x="660" y="1988.5">never relinked silently.</text>
-<rect x="16" y="2026.5" width="572" height="229" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="2026.5" width="571" height="228" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="2033.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2048.5" text-anchor="middle">3</text>
 <text class="t" x="54" y="2049.5">Connections</text>
 <text class="k" x="578" y="2048.5" text-anchor="end">building-connections skill</text>
@@ -326,7 +326,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <rect x="28" y="2220.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="2230.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
 <text class="b" x="86" y="2231"><tspan class="m">reconcile-feeds-ifc.py</tspan> compares, per plant, the zones it serves in the IFC with the zones</text>
 <text class="b" x="86" y="2245.5">it serves in the screenshots.</text>
-<rect x="16" y="2281.5" width="572" height="287" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="2281.5" width="571" height="286" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="2288.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2303.5" text-anchor="middle">4</text>
 <text class="t" x="54" y="2304.5">Equipment from the screenshots</text>
 <text class="k" x="578" y="2303.5" text-anchor="end">equipment-inventory skill</text>
@@ -351,8 +351,8 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <rect x="28" y="2533.5" width="50" height="14" rx="3" fill="#FFFFFF" stroke="#607D8B"/><text class="cp" x="53" y="2543.5" text-anchor="middle" style="fill:#37474F">TOOL</text>
 <text class="b" x="86" y="2544"><tspan class="m">validate-ductpath.ts</tspan> checks each air position against the supply or extract marker in the</text>
 <text class="b" x="86" y="2558.5">equipment's name. <tspan class="m">audit-classes.ts</tspan> checks each medium against the equipment's class.</text>
-<line x1="588" y1="2307.5" x2="632" y2="2307.5" stroke="#F26B3A" stroke-width="2"/>
-<rect x="632" y="2289.5" width="256" height="362" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<line x1="588" y1="2307.5" x2="632" y2="2307.5" stroke="#F26B3A" stroke-width="1"/>
+<rect x="632.5" y="2289.5" width="255" height="361" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/>
 <use xlink:href="#person" x="644" y="2297.5" width="16" height="16"/>
 <text class="ht" x="666" y="2310.5">You confirm or correct</text>
 <text class="hb" x="644" y="2329.5" font-weight="700">1.</text>
@@ -381,7 +381,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="hb" x="660" y="2610.5">and its point-list id, and each medium</text>
 <text class="hb" x="660" y="2625">the audit finds contradicting the</text>
 <text class="hb" x="660" y="2639.5">equipment's class.</text>
-<rect x="16" y="2677.5" width="572" height="340.5" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="2677.5" width="571" height="340" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="2684.5" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="2699.5" text-anchor="middle">5</text>
 <text class="t" x="54" y="2700.5">Classification</text>
 <text class="k" x="578" y="2699.5" text-anchor="end">brick-assign skill</text>
@@ -411,8 +411,8 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="b" x="86" y="2979"><tspan class="m">classify-all.ts</tspan> decides, for each point, what kind of point it is (sensor, setpoint,</text>
 <text class="b" x="86" y="2993.5">command …), what it measures, the medium and the flow, and classifies points, plants,</text>
 <text class="b" x="86" y="3008">equipment, zones, floors and rooms. <tspan class="m">group-low-confidence.ts</tspan> groups the points to review.</text>
-<line x1="588" y1="2703.5" x2="632" y2="2703.5" stroke="#F26B3A" stroke-width="2"/>
-<rect x="632" y="2685.5" width="256" height="289" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1.5"/>
+<line x1="588" y1="2703.5" x2="632" y2="2703.5" stroke="#F26B3A" stroke-width="1"/>
+<rect x="632.5" y="2685.5" width="255" height="288" rx="8" fill="#FFF6F2" stroke="#F26B3A" stroke-width="1"/>
 <use xlink:href="#person" x="644" y="2693.5" width="16" height="16"/>
 <text class="ht" x="666" y="2706.5">You review</text>
 <text class="hb" x="644" y="2725.5" font-weight="700">1.</text>
@@ -434,7 +434,7 @@ text { font-family: Arial, Helvetica, sans-serif; fill: #37474F; }
 <text class="hb" x="660" y="2933.5">Reviewed points in a better group take</text>
 <text class="hb" x="660" y="2948">the new class; a worse group goes back</text>
 <text class="hb" x="660" y="2962.5">to the dictionary.</text>
-<rect x="16" y="3044" width="572" height="166" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1.5"/>
+<rect x="16.5" y="3044.5" width="571" height="165" rx="8" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
 <rect x="25" y="3051" width="22" height="22" rx="4" fill="#E0E6EA"/><text class="num" x="36" y="3066" text-anchor="middle">6</text>
 <text class="t" x="54" y="3067">Generate data model</text>
 <text class="k" x="578" y="3066" text-anchor="end">generate-ttl skill</text>
