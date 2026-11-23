@@ -1,6 +1,6 @@
-# AI-Cx
+#dti-ai-cx-brick (repo in development)
 
-*Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift*
+*Project: AI-Cx — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift*
 
 This repository contains a proof-of-concept, human-in-the-loop agentic workflow. It maps a building's data and
 documentation to a validated semantic data model (a model with standard names and relations) in the
