@@ -29,8 +29,9 @@ query language for linked data, for example with Apache Jena or Python's rdflib,
 into a graph database such as GraphDB.
 
 Project design:
-
-<img src="docs/design.png" alt="Design" width="300">
+<p align="center">
+  <img src="docs/design.png" alt="Project design" width="500">
+</p>
 
 ## Two data routes
 
