@@ -10,7 +10,7 @@ Energy Cluster Denmark project. The code, the agent instructions and this docume
 [Claude Code](https://claude.com/claude-code), Anthropic's AI coding tool, and reviewed by the project team.
 They can contain errors. Check the results before you rely on them.
 
-Discover the workflow steps in [The workflow](#the-workflow).
+Discover the workflow steps in [here](#the-workflow).
 
 Each building management system (BMS) vendor and contractor names and structures data points differently, so the same sensor, zone or plant
 (a technical installation, such as a ventilation unit or a heating system) can look different from one
