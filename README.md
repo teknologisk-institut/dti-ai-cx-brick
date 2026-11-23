@@ -1,4 +1,4 @@
-#dti-ai-cx-brick (repo in development)
+# dti-ai-cx-brick (repo in development)
 
 *Project: AI-Cx — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift*
 
@@ -10,7 +10,7 @@ Energy Cluster Denmark project. The code, the agent instructions and this docume
 [Claude Code](https://claude.com/claude-code), Anthropic's AI coding tool, and reviewed by the project team.
 They can contain errors. Check the results before you rely on them.
 
-Discover the workflow steps in [The pipeline](#the-pipeline).
+Discover the workflow steps in [here](#the-workflow).
 
 Each building management system (BMS) vendor and contractor names and structures data points differently, so the same sensor, zone or plant
 (a technical installation, such as a ventilation unit or a heating system) can look different from one
@@ -26,15 +26,16 @@ data model.
 A human confirms the agent's proposals at defined checkpoints. The result is one Turtle (`.ttl`) file per
 building; Turtle is a text format for linked data. You can query the `.ttl` file directly with SPARQL, the
 query language for linked data, for example with Apache Jena or Python's rdflib, or import it
-into a graph database such as GraphDB.
+into a graph database (triplestore) such as GraphDB.
 
-Project design:
-
-![Project Design Diagram](docs/design.png)
+Project design diagram:
+<p align="center">
+  <img src="docs/design.png" alt="Project design" width="600">
+</p>
 
 ## Two data routes
 
-The pipeline has two routes for the point data, one for each form it was built on: one building delivered a
+The workflow has two routes for the point data, one for each form it was built on: one building delivered a
 BMS point list and a time-series database, the other a BACnet scrape (a read-out of all BACnet devices and their objects). A building uses one route. The agent
 proposes it from your files, and you confirm it.
 
@@ -83,20 +84,20 @@ route).
   <tr>
     <td align="center"><img src="docs/icons/docs-solid.svg" width="40" alt="DOCS"></td>
     <td><b><a href="#input-docs">DOCS</a></b></td>
-    <td align="center"><img src="docs/icons/brick-solid.svg" width="40" alt="BRICK"></td>
+    <td align="center"><img src="docs/icons/brick-solid.svg" width="40" alt="BRICK/REC"></td>
     <td><b><a href="#input-brick">BRICK</a></b></td>
   </tr>
   <tr>
     <td></td>
     <td valign="top">Any other information that helps to decode the tags in the point list, for example abbreviation legends, function descriptions and a zone matrix.</td>
     <td></td>
-    <td valign="top">The Brick ontology, which includes the RealEstateCore (REC) ontology. It gives the standard classes and relations the semantic data model uses. The pipeline uses a nightly version of Brick 1.5.0 (Brick's development version).</td>
+    <td valign="top">The Brick ontology, which includes the RealEstateCore (REC) ontology. It gives the standard classes and relations the semantic data model uses. The workflow uses a nightly version of Brick 1.5.0 (Brick's development version).</td>
   </tr>
 </table>
 
-## The pipeline
+## The workflow
 
-<img src="docs/pipeline-flow.svg" width="900" alt="Pipeline flow: the steps from the building profile to the validated model, the two data routes, the inputs of each step and where you confirm or decide">
+<img src="docs/pipeline-flow.svg" width="900" alt="Agent workflow: the steps from the building profile to the validated model, the two data routes, the inputs of each step and where you confirm or decide">
 
 ## Input requirements
 
@@ -108,10 +109,10 @@ building id.
     <td align="center"><img src="docs/icons/tags.svg" width="40" alt="TAGS"></td>
     <td><a id="input-tags" name="input-tags"></a><b>Input: TAGS</b></td>
   </tr>
-  <tr><td>Used because:</td><td>It is the list of all data points. The pipeline decodes each tag and its description into Brick tags, and the Brick tags give the point its Brick class. The tag also shows which plant or zone the point belongs to.</td></tr>
+  <tr><td>Used because:</td><td>It is the list of all data points. The workflow decodes each tag and its description into Brick tags, and the Brick tags give the point its Brick class. The tag also shows which plant or zone the point belongs to.</td></tr>
   <tr><td>Formats</td><td><code>.csv</code>, UTF-8.</td></tr>
   <tr><td>Place in</td><td>Timeseries: <code>data/&lt;buildingId&gt;/inputs/&lt;buildingId&gt;_pointlist.csv</code>. BACnet: <code>data/&lt;buildingId&gt;/inputs/devices.csv</code> and the object files in <code>data/&lt;buildingId&gt;/inputs/objects/</code>.</td></tr>
-  <tr><td>Required</td><td>Yes. Without it, the pipeline has no points to classify.</td></tr>
+  <tr><td>Required</td><td>Yes. Without it, the workflow has no points to classify.</td></tr>
   <tr><td>Depends on</td><td>Two files the agent drafts with you. The building profile (<code>building-config.json</code>) records where your files are and how your tags split into plant or zone and point. The point dictionary (<code>point-dictionary.json</code>) lists every abbreviation and word in your tags and descriptions. Each entry has its meaning, the Brick tags it gives and the source of that meaning. On the timeseries route, SQL IDS supplies the units.</td></tr>
   <tr><td>Must contain</td><td>It depends on the route. You supply one of the two, not both. Timeseries: a point-list CSV with a plant, a point and a description column. BACnet: a device list and one object file per device. The details for each route follow below.</td></tr>
 </table>
@@ -159,7 +160,7 @@ The matching part of the profile:
 }
 ```
 
-The same rows as the pipeline reads them. The tag joins the plant value and the point value with the
+The same rows as the workflow reads them. The tag joins the plant value and the point value with the
 separator `_`:
 
 | Plant | Point | Description | Tag | Zone or plant |
@@ -197,7 +198,7 @@ analog-input,3,DEMO_Z_201_TR1,Temperatur rum,21.4,degrees-celsius,
 schedule,1,DEMO_SCHEDULE,Ugeprogram,,,
 ```
 
-What the pipeline reads from these tags. The agent finds the pattern in the tags and you confirm it:
+What the workflow reads from these tags. The agent finds the pattern in the tags and you confirm it:
 
 | Tag (object name) | Belongs to | Point |
 |---|---|---|
@@ -219,7 +220,7 @@ semantic data model names the points without it, for example `RAD01_TF1`. The li
   <tr><td>Used because:</td><td>The semantic data model links each point to its data with this id. Each id must belong to the right point, so that the data is linked to the correct point in the semantic data model.</td></tr>
   <tr><td>Formats</td><td>Timeseries: <code>.json</code>, UTF-8. BACnet: no separate file; the ids are the object names in the TAGS object files.</td></tr>
   <tr><td>Place in</td><td>Timeseries: <code>data/&lt;buildingId&gt;/inputs/objects.json</code>. BACnet: nothing to place.</td></tr>
-  <tr><td>Required</td><td>Yes. The pipeline classifies a point without an id, but the semantic data model cannot point to its data.</td></tr>
+  <tr><td>Required</td><td>Yes. The workflow classifies a point without an id, but the semantic data model cannot point to its data.</td></tr>
   <tr><td>Depends on</td><td>TAGS. Timeseries: each id must be equal to a tag from the point list. BACnet: the id is the object name, which is also the tag.</td></tr>
   <tr><td>Must contain</td><td>Timeseries: a top-level <code>objects</code> array; each object has <code>object_name</code> (the tag), <code>object_type</code>, <code>object_instance</code> and <code>units</code>. BACnet: the object name, type and number, already in the TAGS object files.</td></tr>
 </table>
@@ -256,7 +257,7 @@ the point `RAD01_TF1` to its data.
   <tr><td>Formats</td><td><code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>. Full-size screenshots.</td></tr>
   <tr><td>Place in</td><td><code>data/&lt;buildingId&gt;/images/</code>, one folder per kind of screen, for example <code>plants_overview/</code>, <code>rooms_overview/</code>, <code>floorplans/</code>, <code>plants/</code>, <code>rooms/</code>. Other folder names also work: the agent writes each folder's path into the building profile.</td></tr>
   <tr><td>Required</td><td>No, but strongly advised. Without screenshots, the equipment comes from the tags only, and the semantic data model has no "plant serves zone" relations. A point's supply or return side then comes from its tag and description only.</td></tr>
-  <tr><td>Depends on</td><td>TAGS. The pipeline checks the plant and zone names on the screens against the tags.</td></tr>
+  <tr><td>Depends on</td><td>TAGS. The workflow checks the plant and zone names on the screens against the tags.</td></tr>
   <tr><td>Must contain</td><td>One screen per image, at full size. The labels must be readable when the image is zoomed in. The kinds of screen are listed below; use the kinds your BMS has.</td></tr>
 </table>
 
@@ -269,10 +270,10 @@ that serves it connect to the zone. The semantic data model links the zone to ea
 
 **Kinds of screen images and example**
 
-BMS screens differ from building to building. These are the kinds the pipeline reads, as seen in the two
+BMS screens differ from building to building. These are the kinds the workflow reads, as seen in the two
 buildings it was built on:
 
-| Screen | What it shows | What the pipeline takes |
+| BMS screen | What it shows | What the workflow takes |
 |---|---|---|
 | Plant overviews | The plants, often one tab or table per system type, sometimes with live values. | Which plants exist and which belong together. |
 | Room overviews | The zones, often one tab per floor, with zone name and, if present, room number and use. | Links from zones to rooms, and zone names. |
@@ -284,7 +285,7 @@ buildings it was built on:
 A symbol without a label gets no equipment item from the image, because an id is never made up. If that
 equipment has points, its item comes from the tags; if not, it is only noted in the building's notes.
 
-Example plant schematic of ventilation unit `VE01`:
+Example plant schematic of ventilation unit:
 
 <img src="docs/ve-diagram.png" width="720" alt="Plant schematic of ventilation unit VE01">
 
@@ -295,15 +296,15 @@ Example plant schematic of ventilation unit `VE01`:
     <td align="center"><img src="docs/icons/bim.svg" width="40" alt="BIM"></td>
     <td><a id="input-bim" name="input-bim"></a><b>Input: BIM</b></td>
   </tr>
-  <tr><td>Used because:</td><td>The architecture model gives the floors and rooms of the building. The pipeline links each BMS zone to its rooms. An installation model, for example the ventilation model, can check which plant serves which room.</td></tr>
+  <tr><td>Used because:</td><td>The architecture model gives the floors and rooms of the building. The workflow links each BMS zone to its rooms. An installation model, for example the ventilation model, can check which plant serves which room.</td></tr>
   <tr><td>Formats</td><td><code>.ifc</code></td></tr>
   <tr><td>Place in</td><td><code>data/&lt;buildingId&gt;/inputs/</code></td></tr>
-  <tr><td>Required</td><td>The architecture model: yes. Without it, the pipeline makes no semantic data model. An installation model: no.</td></tr>
+  <tr><td>Required</td><td>The architecture model: yes. Without it, the workflow makes no semantic data model. An installation model: no.</td></tr>
   <tr><td>Depends on</td><td>TAGS. The zones from tags are needed to link to rooms. The agent finds the rule from the zone tags to the room numbers, and you confirm it. A zone matrix (DOCS) and the room overviews (BMS) can confirm the links.</td></tr>
   <tr><td>Must contain</td><td>Architecture model: the storeys (<code>IfcBuildingStorey</code>) with name and elevation, and the rooms (<code>IfcSpace</code>) with the room number (<code>Name</code>) and the room name (<code>LongName</code>), each on its storey. Installation model: the systems (<code>IfcSystem</code>), with their parts placed in rooms with the same room numbers. The system names can differ from the plant tags; the agent drafts a rule that maps them, and you confirm it. Any system type counts: ventilation, heating, cooling or water. But the profile holds one rule, a single name pattern, and a system whose name it does not match is left out. If you add installation models with different naming schemes, the pattern must cover them all. A system links to a room only through its parts placed in that room.</td></tr>
 </table>
 
-The pipeline uses the IFC models the same way on both routes. The architecture model places room `1.01` on its
+The workflow uses the IFC models the same way on both routes. The architecture model places room `1.01` on its
 storey. The installation model groups a supply air valve into system `VE01 Indblæsning` and places it in its
 own room `1.01`; the room number links the two models. Storeys that are not floors (for example a work plane)
 and spaces that are not rooms are left out when the point dictionary marks them: a storey by its name, a space
@@ -329,7 +330,7 @@ FILE_SCHEMA(('IFC2X3'));
 #420=IFCRELCONTAINEDINSPATIALSTRUCTURE('1tU3vW5xY7zA9bC1dE3fG5',#2,$,$,(#400),#350);
 ```
 
-What the pipeline reads from these lines:
+What the workflow reads from these lines:
 
 | Model | IFC entity | Field | Example value | Used for |
 |---|---|---|---|---|
@@ -378,7 +379,7 @@ MV;Motorventil
     <td align="center"><img src="docs/icons/brick.svg" width="40" alt="BRICK"></td>
     <td><a id="input-brick" name="input-brick"></a><b>Input: BRICK</b></td>
   </tr>
-  <tr><td>Used because:</td><td>Each Brick class is defined by a set of Brick tags. The pipeline gives each point the class whose tags match the point's Brick tags: <i>Supply</i>, <i>Hot</i>, <i>Water</i>, <i>Temperature</i> and <i>Sensor</i> give <code>Supply_Hot_Water_Temperature_Sensor</code>. The relations in the semantic data model are Brick and RealEstateCore properties, for example <code>brick:hasPoint</code> (equipment or zone to its point), <code>brick:feeds</code> (plant to the zone or plant it serves), <code>brick:hasPart</code> (plant to its equipment), <code>brick:hasLocation</code> (zone to room), <code>rec:isPartOf</code> (room to floor) and <code>ref:hasExternalReference</code> (point to its data link).</td></tr>
+  <tr><td>Used because:</td><td>Each Brick class is defined by a set of Brick tags. The workflow gives each point the class whose tags match the point's Brick tags: <i>Supply</i>, <i>Hot</i>, <i>Water</i>, <i>Temperature</i> and <i>Sensor</i> give <code>Supply_Hot_Water_Temperature_Sensor</code>. The relations in the semantic data model are Brick and RealEstateCore properties, for example <code>brick:hasPoint</code> (equipment or zone to its point), <code>brick:feeds</code> (plant to the zone or plant it serves), <code>brick:hasPart</code> (plant to its equipment), <code>brick:hasLocation</code> (zone to room), <code>rec:isPartOf</code> (room to floor) and <code>ref:hasExternalReference</code> (point to its data link).</td></tr>
   <tr><td>Formats</td><td><code>.ttl</code> (the ontology) and <code>.json</code> (two index files made from it).</td></tr>
   <tr><td>Place in</td><td><code>ontologies/</code>. It is provided in this repository.</td></tr>
   <tr><td>Required</td><td>Yes. It is provided, so you supply nothing.</td></tr>
@@ -462,12 +463,14 @@ the tools.
 
 ## Repository contents
 
+The skills and tools call the workflow "the pipeline".
+
 **Agent instructions**
 
 | File | What it does |
 |---|---|
 | `CLAUDE.md` | The rules the agent follows in every session. |
-| `.claude/skills/skill-00-context.md` | Shared terms, the data layout and the pipeline steps with their tools. |
+| `.claude/skills/skill-00-context.md` | Shared terms, the data layout and the workflow steps with their tools. |
 | `.claude/skills/point-mapping/SKILL.md` | Building profile, point dictionary, point mapping, zone-to-room links. |
 | `.claude/skills/building-connections/SKILL.md` | Which plant serves which zone or plant, from the screenshots. |
 | `.claude/skills/equipment-inventory/SKILL.md` | Equipment from the tags and the screenshots. |
@@ -515,7 +518,7 @@ the tools.
 | File | Usage | What it does |
 |---|---|---|
 | `tools/classify-all.ts` | `npx ts-node tools/classify-all.ts <buildingId> [--dry-run] [--only plants\|equipment\|spatial\|zones\|points]` | Gives every point, plant, piece of equipment, zone, floor and room a Brick class, and saves it in the point mapping, equipment and floor-and-room files. Anything you have reviewed keeps its class. `--dry-run` shows the result without saving. |
-| `tools/group-low-confidence.ts` | `npx ts-node tools/group-low-confidence.ts <buildingId>` | Groups the points the pipeline is unsure about by how they were decided, with examples, so you can review a whole group at once. It changes nothing. |
+| `tools/group-low-confidence.ts` | `npx ts-node tools/group-low-confidence.ts <buildingId>` | Groups the points the workflow is unsure about by how they were decided, with examples, so you can review a whole group at once. It changes nothing. |
 | `tools/assign-brick.ts` | `npx ts-node tools/assign-brick.ts <buildingId> --type <type> ...` | Sets the class of one item, or a list of items, after your review. The item is marked as reviewed, so `classify-all.ts` does not change it later. |
 | `tools/compare-classes-by-cause.ts` | `npx ts-node tools/compare-classes-by-cause.ts <buildingId> --before <inputsDir> --after <inputsDir> [--out <file.md>]` | After a change, groups the class changes by their cause. `--out` also writes the file of groups that `apply-class-verdicts.ts` reads. |
 | `tools/apply-class-verdicts.ts` | `npx ts-node tools/apply-class-verdicts.ts <buildingId> --groups <file.json> --verdicts <file.json>` | Applies your decision per group to reviewed points. |
@@ -533,7 +536,7 @@ the tools.
 
 | File | What it does |
 |---|---|
-| `ontologies/Brick_nightly.ttl` | The Brick ontology the pipeline uses. |
+| `ontologies/Brick_nightly.ttl` | The Brick ontology the workflow uses. |
 | `ontologies/brick-classification-index.json` | Each Brick class with its Brick tags. Made from the ontology. |
 | `ontologies/brick-relationship-index.json` | The Brick relations. Made from the ontology. The agent reads it through the skills. |
 | `tools/build-brick-classification-index.ts`, `tools/build-brick-relationship-index.ts` | Make the two index files again; see [Prerequisites and setup](#prerequisites-and-setup). |
@@ -599,26 +602,26 @@ The index tools have been tested only on the version provided.
 
 ## Limits
 
-- The pipeline was built and tested on two buildings, one per route. For another building, the agent writes
+- The workflow was built and tested on two buildings, one per route. For another building, the agent writes
   new rules in the building profile (how tags split, how zone ids look, how BACnet object names are read) and
   a new point dictionary. Naming that these rules cannot express, and point data in another form, need
   changes in the code.
 - The instructions for reading screenshots assume Danish screen text: they warn about misreading ø, æ and å.
   Screens in another language get no such guidance.
-- Without an architecture model (IFC) the pipeline makes no semantic data model: the zone-to-room step needs
+- Without an architecture model (IFC) the workflow makes no semantic data model: the zone-to-room step needs
   its floors and rooms. Rooms the IFC lacks can be added from documents by your decision, but they cannot
   replace it.
 - The building profile has one rule that maps installation-IFC system names to plants. Systems whose names it
   does not match are left out, so installation models with different naming schemes need one pattern that
   covers them all.
 - For water points of a plant, the supply or return side comes from the screenshots: the side of the linked
-  pump, valve or exchanger. When no screenshot gives it, the pipeline looks for fixed words in the point's
+  pump, valve or exchanger. When no screenshot gives it, the workflow looks for fixed words in the point's
   description and meaning text (`fremløb`, `frem` or `supply`; `returløb`, `retur` or `return`). These words
   are in the code, not in the point dictionary, so this step works only for Danish or English text. The
-  pipeline marks every such point for your review, also when the point dictionary already settles its side.
-- The validation is the pipeline's own: Turtle syntax, classes, relations and data links, plus a few rules
+  workflow marks every such point for your review, also when the point dictionary already settles its side.
+- The validation is the workflow's own: Turtle syntax, classes, relations and data links, plus a few rules
   taken from the SHACL shapes in the Brick ontology. SHACL is the W3C standard for rules on linked data. The
-  pipeline does not run a SHACL validator (for example pySHACL), so it does not check all of Brick's SHACL
+  workflow does not run a SHACL validator (for example pySHACL), so it does not check all of Brick's SHACL
   rules, nor other rule sets.
 - `audit-classes.ts` (optional) finds points whose class may be too general and equipment whose medium may be
   wrong. It uses fixed Danish and English words in its code, not the point dictionary, so use its result as
@@ -635,7 +638,8 @@ The index tools have been tested only on the version provided.
 - **RealEstateCore** (part of the Brick nightly version): BSD 3-Clause License, Copyright (c) 2022, RealEstateCore
   Consortium. See [RealEstateCore/rec](https://github.com/RealEstateCore/rec). If you use REC in research, its
   authors ask you to cite: Hammar, K., Wallin, E. O., Karlberg, P., Hälleberg, D. (2019). *The RealEstateCore
-  Ontology*. ISWC 2019. https://doi.org/10.1007/978-3-030-30796-7_9
-- **QUDT** (the unit identifiers in the semantic data model): Creative Commons Attribution 4.0 International (CC BY 4.0).
+  Ontology*. ISWC 2019, pp. 130–145. https://doi.org/10.1007/978-3-030-30796-7_9
+- **QUDT** (the unit identifiers in the semantic data model): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
   See [qudt.org](https://www.qudt.org/).
+- PropValueAB och FabegeAB's mapping guide for Brick providing valuable insight. 
 - Developed by the Danish Technological Institute (DTI) as part of an Energy Cluster Denmark project.
