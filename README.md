@@ -30,7 +30,7 @@ into a graph database such as GraphDB.
 
 Project design:
 <p align="center">
-  <img src="docs/design.png" alt="Project design" width="500">
+  <img src="docs/design.png" alt="Project design" width="600">
 </p>
 
 ## Two data routes
