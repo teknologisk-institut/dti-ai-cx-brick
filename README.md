@@ -632,7 +632,6 @@ The index tools have been tested only on the version provided.
 
 ## Licence and credits
 
-- **This repository:** *licence to be added.*
 - **Brick** (`ontologies/Brick_nightly.ttl` and the two index files made from it): BSD 3-Clause License,
   Copyright (c) 2016-2026, Brick Consortium, Inc. See [BrickSchema/Brick](https://github.com/BrickSchema/Brick).
 - **RealEstateCore** (part of the Brick nightly version): BSD 3-Clause License, Copyright (c) 2022, RealEstateCore
