@@ -641,4 +641,4 @@ The index tools have been tested only on the version provided.
 - **QUDT** (the unit identifiers in the semantic data model): [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
   See [qudt.org](https://www.qudt.org/).
 - PropValueAB och FabegeAB's mapping guide for Brick providing valuable insight. 
-- Developed by the Danish Technological Institute (DTI) as part of an Energy Cluster Denmark project.
+- Developed by the Danish Technological Institute (DTI) as part of an [Energy Cluster Denmark project](https://energycluster.dk/en/projects/ai-cx).
