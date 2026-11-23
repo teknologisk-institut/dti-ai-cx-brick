@@ -26,7 +26,7 @@ data model.
 A human confirms the agent's proposals at defined checkpoints. The result is one Turtle (`.ttl`) file per
 building; Turtle is a text format for linked data. You can query the `.ttl` file directly with SPARQL, the
 query language for linked data, for example with Apache Jena or Python's rdflib, or import it
-into a graph database such as GraphDB.
+into a graph database (triplestore) such as GraphDB.
 
 Project design diagram:
 <p align="center">
