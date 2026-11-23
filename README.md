@@ -542,7 +542,7 @@ The skills and tools call the workflow "the pipeline".
 | `tools/build-brick-classification-index.ts`, `tools/build-brick-relationship-index.ts` | Make the two index files again; see [Prerequisites and setup](#prerequisites-and-setup). |
 | `tools/lib/` | Code the tools share. |
 | `package.json`, `package-lock.json`, `tsconfig.json` | Node packages and TypeScript settings. |
-| `docs/icons/`, `docs/examples/` | The icons and the example image in this README. |
+| `docs/icons/` | The icons in this README. |
 
 ## Prerequisites and setup
 
