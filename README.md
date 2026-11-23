@@ -2,8 +2,8 @@
 
 *Project: AI-Cx — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift*
 
-This repository contains a proof-of-concept, human-in-the-loop agentic workflow. It maps a building's data and
-documentation to a validated semantic data model (a model with standard names and relations) in the
+This repository contains a proof-of-concept, human-in-the-loop agentic workflow. The agentic workflow is one of several deliverables in the project. Other deliverables includes makes BMS data accessible, and demonstrating a use case for commissioning of buildings. 
+The workflow maps a building's data and documentation to a validated semantic data model (a model with standard names and relations) in the
 [Brick ontology](https://brickschema.org/), to support use
 cases such as continuous commissioning. The Danish Technological Institute (DTI) developed it as part of an
 Energy Cluster Denmark project. The code, the agent instructions and this documentation were developed with
