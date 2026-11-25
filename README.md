@@ -595,7 +595,7 @@ The index tools have been tested only on the version provided.
 1. Get your own copy: clone the repository. Fork it first only if you want your
    own copy on GitHub to keep or share changes. Then install what it needs (see
    [Prerequisites and setup](#prerequisites-and-setup)).
-2. Create the building folder `data/<buildingId>/` (i.e. data/building_1/ in your copy and put your inputs in it (see
+2. Create the building folder `data/<buildingId>/` (for example `data/building_1/`) in your copy and put your inputs in it (see
    [Input requirements](#input-requirements)). Git ignores `data/`, so your building data stays on your
    computer. Don't commit it to a public fork.
 3. Open Claude Code in your copy's folder.
