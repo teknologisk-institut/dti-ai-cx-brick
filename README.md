@@ -595,15 +595,15 @@ The index tools have been tested only on the version provided.
 1. Get your own copy: clone the repository. Fork it first only if you want your
    own copy on GitHub to keep or share changes. Then install what it needs (see
    [Prerequisites and setup](#prerequisites-and-setup)).
-2. Create the building folder `data/<buildingId>/` (for example `data/building_1/`) in your copy and put your inputs in it (see
+2. Create the building folder `data/<buildingId>/` (for example `data/TEC/`) in your copy and put your inputs in it (see
    [Input requirements](#input-requirements)). Git ignores `data/`, so your building data stays on your
    computer. Don't commit it to a public fork.
 3. Open Claude Code in your copy's folder.
-4. Ask: *Show me the current progress for `building_1`*. The agent runs `pipeline-status.ts`. For a new
+4. Ask: *Show me the current progress for `TEC`*. The agent runs `pipeline-status.ts`. For a new
    building it reports that the building profile is missing, and the first step is the inventory: the agent
    looks at your files and drafts the profile with you.
 5. Go on step by step. The agent stops when it needs your answer. Later requests are, for example, *Classify all
-   entities for `building_1`* and *Generate TTL for `building_1`*.
+   entities for `TEC`* and *Generate TTL for `TEC`*.
 
 ## Limitations
 
