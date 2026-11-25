@@ -101,7 +101,7 @@ route).
 
 <!-- workflow-text:start (generated with the diagram) -->
 <details>
-<summary>Click to expand text version of the diagram</summary>
+<summary>Click to expand for the text version of the diagram</summary>
 <br>
   
 The steps run from top to bottom. **Agent**: Claude Code with the skills, in your session. **Tool**: a script with fixed rules. **Batch**: `claude -p` on each image, without you. Each input is named with its icon label.
