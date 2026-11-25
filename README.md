@@ -99,6 +99,149 @@ route).
 
 <img src="docs/pipeline-flow.svg" width="900" alt="Agent workflow: the steps from the building profile to the semantic data model, the two data routes, the inputs of each step and where you confirm or decide">
 
+<!-- workflow-text:start (generated with the diagram) -->
+<details>
+<summary>Text version of the diagram</summary>
+
+The steps run from top to bottom. **Agent**: Claude Code with the skills, in your session. **Tool**: a script with fixed rules. **Batch**: `claude -p` on each image, without you. Each input is named with its icon label.
+
+**One-time setup: the Brick indexes, shared by all buildings** · *no skill*
+
+- **Brick/REC ontology (BRICK):** `Brick_nightly.ttl`: the development version of Brick 1.5.0, with REC, provided in the repository. The steps use the two indexes made from it, not this file.
+- **Tool:** `build-brick-classification-index.ts` writes the class index: each class with its Brick tags, read by the tools. `build-brick-relationship-index.ts` writes the relationship index, read by the agent through the skills. Both indexes are provided; run the two tools again when you use a newer Brick version.
+
+**0. Inventory: the building profile** · *point-mapping skill*
+
+- **Agent:** Lists your files and proposes the route: a point list and `objects.json` give timeseries; `devices.csv` and object files give BACnet. Then drafts the profile with you.
+- **Timeseries route:**
+  - **Point list (TAGS):** Header and sample rows → delimiter, columns, the marker for an empty cell, and rows to skip.
+  - **Point list (TAGS):** Tags sorted by their pattern → how a tag splits into its zone or plant and its point abbreviation.
+  - **Database ids (SQL IDs):** Listed as the source of the ids and units.
+- **BACnet route:**
+  - **Point list (TAGS):** `devices.csv` columns → the device roles.
+  - **Point list (TAGS):** Object names sorted by their pattern → rules that clean the names, place each object in a plant or zone, skip some, merge copies, and split each name into parts.
+  - **Database ids (SQL IDs):** None: the object names are the ids.
+- **Screenshots (BMS):** Opens a few images of each kind and drafts the screen guide, the notes, and which screens show which plant serves which zone.
+- **IFC models (BIM):** Installation IFC: its system names compared with the plant list → the rule that matches each system name to a plant.
+- **Documents (DOCS):** Listed in the profile: legends, function descriptions, a zone matrix.
+- **Tool:** `write-building-profile.ts` checks the profile against your data and writes `building-config.json`. Timeseries: row counts, skipped rows and empty cells. BACnet: counts per rule, example splits, objects on several controllers and objects no rule places.
+
+**You confirm:**
+
+1. **Route,** the input list and the plant-abbreviation pattern.
+2. **Timeseries:** the point-list format (delimiter, columns, empty-cell marker, rows to skip) and the naming rules, with the number of tags each pattern sorts as zone or plant.
+3. **BACnet, one decision at a time:** device roles, name cleanup, each placement rule with example names split by it, each skip rule, each object on several controllers, and the name patterns no rule places (they become points of their controller).
+4. **Screen guide**, notes, which screens show which plant serves which zone, and the rule for IFC system names, before image analysis starts.
+
+**Point dictionary** · *before point mapping · point-mapping skill*
+
+- **Agent:** Drafts each entry: meaning, Brick tags and source. Writes only through `write-point-dictionary-entry.ts`.
+- **Point list (TAGS):** Every point abbreviation, suffix and plant abbreviation gets an entry. Every frequent description word gets an entry or is recorded as ignored. Each point's description is checked against the meaning the documents give. BACnet: also the state names (On, Off, Auto …), and unit spellings outside the standard BACnet unit names.
+- **Database ids (SQL IDs):** Timeseries: each unit symbol (°C, m³/h) gets an entry.
+- **Documents (DOCS):** Legends and function descriptions: each meaning is quoted word for word, with file and place (`search-supporting-docs.ts`). Legend rows that are not in your data are recorded, not entered.
+- **Brick/REC ontology (BRICK):** Every Brick tag in an entry must exist in the class index.
+- **Tool:** `review-dictionary-draft.ts` lists what is still open. `write-point-dictionary-entry.ts promote` writes `point-dictionary.json` when nothing is open.
+
+**You confirm or change:**
+
+1. **One at a time,** with the evidence: documents that contradict the data, entries changed from before, new and flagged entries, entries with no source, entries carried over with no fresh evidence, two words in one description that give different kinds of point, and legend rows, removed entries and ignored words not yet recorded.
+2. **One table:** entries with only the data as source, no document.
+3. **A count:** entries where documents and data agree.
+4. **Open lists:** frequent words with no entry, and points where nothing says what kind of point it is (sensor, setpoint, command …) or what it measures.
+5. **Later:** gaps from later steps come back here the same way.
+
+**1. Parse inputs** · *no skill*
+
+- **Timeseries route:**
+  - **Point list (TAGS):** The point list is split into plant rows and zone rows.
+- **BACnet route:**
+  - **Point list (TAGS):** No split: the device list and the object files are read as they are.
+- **IFC models (BIM):** Every storey and space of the architecture IFC, and room → plant from the installation IFCs.
+- **Tool:** `split-pointlist-csv.ts` splits the point list (timeseries). `build-spatial-hierarchy.py` reads the IFC files.
+
+**2. Point mapping** · *point-mapping skill*
+
+- **Agent:** Runs the mapper. Takes abbreviations and suffixes with no entry, frequent words with no entry, words that give different kinds of point, and points with no kind or quantity back to the dictionary review. Then runs the mapper again, keeping the points you reviewed, and `classify-all.ts`.
+- **Timeseries route:**
+  - **Point list (TAGS):** Each row becomes a point of its plant or zone (`map-plant-points.ts`, `map-zone-points.ts`).
+  - **Database ids (SQL IDs):** Joined by point id to the `objects.json` names: id, object type and unit. Meter readings with no point-list row are added from `objects.json`.
+- **BACnet route:**
+  - **Point list (TAGS):** Each object is placed in a plant or zone by the profile's rules (`map-bacnet-points.ts`). Skip rules drop some, merge rules join copies. Objects no rule places become points of their controller itself.
+  - **Database ids (SQL IDs):** The object name is the id; type, unit and state names come from the object file.
+- **Tool:** `map-points.ts` runs the route's mapper. The dictionary gives each point the meaning of its abbreviation and suffix.
+
+*The routes join here: the same tools from here on, BACnet extras as noted.*
+
+**2. Equipment from the tags** · *equipment-inventory skill*
+
+- **Tool:** `update-equipment.ts --bms` makes one item per device whose abbreviation the dictionary names as equipment (a fan, a valve …). Extra points of the same device, such as an alarm suffix, add no item. The item id is the point abbreviation (timeseries) or abbreviation and number (BACnet).
+
+**2. Zone-to-room links** · *point-mapping skill*
+
+- **Agent:** Drafts the rule from zone ids to room numbers and reads the sources into rows. Writes the rule, the rows, the check flags and your decisions with `write-zone-rooms.ts`.
+- **Screenshots (BMS):** Room overviews: floor, name, room number and use. Room-schematic headers: zone id and name. One image at a time, saved after each.
+- **IFC models (BIM):** Room numbers and names, storeys and space types (from step 1). Their names become dictionary words: room types, and storeys and spaces to leave out.
+- **Documents (DOCS):** Zone matrix rows: zone, room, floor and name.
+- **Tool:** `match-zone-rooms.ts` checks each zone against the sources, lists what needs you (`--review`), then writes the floors, rooms and zones. After step 3 it runs again and also checks that the zone's plant serves the room.
+
+**You confirm and decide:**
+
+1. **The rule** from zone ids to room numbers, with its hit rate and misses, and each check's two computed flags: does it count, is it independent. You can override a flag, with a reason.
+2. **Each listed zone, one at a time:** a check disagrees, or no IFC room fits. Accept the proposed room, pick another IFC room, create one from the documents, or leave it unlinked, with a reason.
+3. **Rule-only zones:** no check fails, but none confirms the room on its own. One decision for the group.
+4. **Stale decisions:** a rule, source or dictionary change altered what an answer was based on. The zone is listed again, never relinked silently.
+
+**3. Connections** · *building-connections skill*
+
+- **Agent:** Reads one image at a time and saves after each (`update-connections.ts`). For each zone whose plant only one source shows, re-reads the screenshot, decides, and tells you what it decided.
+- **Screenshots (BMS):** Plant overviews and plant schematics: which plant serves which plant, and which plants are part of another plant.
+- **Screenshots (BMS):** Floorplan colours or the room schematic's plant button, as the profile says: which plant serves which zone.
+- **IFC models (BIM):** Installation IFC systems: which plant serves which room, and through the zone-to-room links which zone.
+- **Tool:** `reconcile-feeds-ifc.py` compares, per plant, the zones it serves in the IFC with the zones it serves in the screenshots.
+
+**4. Equipment from the screenshots** · *equipment-inventory skill*
+
+- **Agent:** One image at a time, saved after each (`update-equipment.ts`). On each plant it first proposes the positions in the duct or pipe (supply, return …) and each medium (hot water, chilled water …), with its reasons, and writes them only after you confirm. Then it reruns the dictionary review with the image positions. A dictionary entry that tags all its points as one stream (supply, return …), while the images put them on different streams, goes back to the review.
+- **Screenshots (BMS):** Plant schematics: the plant's title, type, controller and station; each piece of equipment, its position in the duct or pipe and its medium.
+- **Screenshots (BMS):** Room schematics: the zone's dampers, valves and sensors, and the fields at the top of the screen.
+- **Batch:** Optional: `run-equipment-extraction.ts` runs `claude -p` on each image without you. It writes equipment without positions or medium, and skips plants whose positions are already confirmed. Your confirmations follow in your session.
+- **Tool:** `validate-ductpath.ts` checks each air position against the supply or extract marker in the equipment's name. `audit-classes.ts` checks each medium against the equipment's class.
+
+**You confirm or correct:**
+
+1. **Per plant, before anything is written:** the positions in the duct or pipe and each medium.
+2. **Air:** intake, supply, return, exhaust (and preheat), read from the heat-recovery unit.
+3. **Water:** read from the exchanger or meter, else the loop's pump and valve or mixing shunt. Supply and return on a plain or mixing loop; an exchanger's primary and secondary sides; a hot-water tank's coil is primary; supply, circulation return and make-up on the domestic hot-water side.
+4. **Medium** of each pump, tank, valve, coil and exchanger: hot, chilled, domestic, cold or condenser.
+5. **Also:** the link between a screen label and its point-list id, and each medium the audit finds contradicting the equipment's class.
+
+**5. Classification** · *brick-assign skill*
+
+- **Agent:** For each group of review points with the same flags and the same deciding dictionary entries, proposes one verdict. Writes it with `assign-brick.ts`, or fixes the dictionary entry behind it through the dictionary review. After a dictionary change: `compare-classes-by-cause.ts` groups the class changes, `apply-class-verdicts.ts` applies your verdicts.
+- **Point list (TAGS):** Through the dictionary: the point abbreviation and suffix of each tag and the description words (BACnet: also state names), from step 2.
+- **Database ids (SQL IDs):** The unit gives what is measured. The object type only checks that on/off points and measured values get matching classes.
+- **Screenshots (BMS):** From step 4: each item's confirmed position and medium, and the plant's title and equipment, which check the plant class. From step 3: which plant serves which, so a plant with no water type of its own (hot, chilled, domestic) takes it from the plant that serves it.
+- **IFC models (BIM):** Room and storey names, through dictionary words, give the room and floor classes.
+- **Brick/REC ontology (BRICK):** The class index: the class whose Brick tags best match the point's tags.
+- **Tool:** `classify-all.ts` decides, for each point, what kind of point it is (sensor, setpoint, command …), what it measures, the medium and the flow, and classifies points, plants, equipment, zones, floors and rooms. `group-low-confidence.ts` groups the points to review.
+
+**You review:**
+
+1. **Each review group:** points flagged for review, with low confidence, or where another class would keep something this one drops, grouped by their flags and the dictionary entries that decided them. The agent finds the cause and proposes a verdict: keep the class, a more specific class, a dictionary fix, or ambiguous. You confirm or correct it, a few groups per round.
+2. **After a dictionary change:** the class changes, grouped by old class, new class and the entry that decided them. You judge each group better or worse. Reviewed points in a better group take the new class; a worse group goes back to the dictionary.
+
+**6. Generate data model** · *generate-ttl skill*
+
+- **Point list (TAGS):** BACnet: `devices.csv` gives the devices, and each device is checked against it.
+- **Database ids (SQL IDs):** Each point's database id becomes its link to its time series, and each link is checked against the ids from step 2.
+- **Brick/REC ontology (BRICK):** The class index: the classes in the model, each checked to exist and not be deprecated.
+- **Tool:** `generate-ttl.ts` writes `outputs/building.ttl` from the files of steps 2 to 5. `validate-ttl.ts` checks Turtle syntax, classes, relations and references. `validate-refs.ts` checks the time-series links and, on BACnet, the devices.
+
+**Output:** query `building.ttl` directly with SPARQL, or import it into a database such as GraphDB for scalable storage and reasoning.
+
+</details>
+<!-- workflow-text:end -->
+
 ## Input requirements
 
 Each building has its own folder, `data/<buildingId>/`. You create it and choose its name; that name is the
