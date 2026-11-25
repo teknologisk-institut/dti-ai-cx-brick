@@ -476,7 +476,7 @@ The skills and tools call the workflow "the pipeline".
 | `.claude/skills/equipment-inventory/SKILL.md` | Equipment from the tags and the screenshots. |
 | `.claude/skills/brick-assign/SKILL.md` | Brick classes and the review of uncertain points. |
 | `.claude/skills/brick-relationships/SKILL.md` | The relations the semantic data model uses. |
-| `.claude/skills/generate-ttl/SKILL.md` | Making and checking the semantic data model. |
+| `.claude/skills/generate-ttl/SKILL.md` | Generates and checks the semantic data model. |
 
 **Building profile and point dictionary**
 
