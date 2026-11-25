@@ -567,7 +567,7 @@ The skills and tools call the workflow "the pipeline".
 **Brick version and updating.** The repository provides a nightly version of Brick 1.5.0
 (`ontologies/Brick_nightly.ttl`, added on 2026-08-17) and the two index files made from it. No tool reads the
 ontology file while it runs: the tools read the classification index, and the agent reads the relationship index
-through the skills. To use a newer nightly version, replace the file and make the index files again:
+through the skills. To use a newer version, replace the file and make the index files again:
 
 ```bash
 npx ts-node tools/build-brick-classification-index.ts ontologies/Brick_nightly.ttl ontologies/brick-classification-index.json
