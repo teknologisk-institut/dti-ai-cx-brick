@@ -97,7 +97,7 @@ route).
 
 ## The workflow
 
-<img src="docs/pipeline-flow.svg" width="900" alt="Agent workflow: the steps from the building profile to the validated model, the two data routes, the inputs of each step and where you confirm or decide">
+<img src="docs/pipeline-flow.svg" width="900" alt="Agent workflow: the steps from the building profile to the semantic data model, the two data routes, the inputs of each step and where you confirm or decide">
 
 ## Input requirements
 
