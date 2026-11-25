@@ -596,8 +596,7 @@ The index tools have been tested only on the version provided.
    own copy on GitHub to keep or share changes. Then install what it needs (see
    [Prerequisites and setup](#prerequisites-and-setup)).
 2. Create the building folder `data/<buildingId>/` (for example `data/TEC/`) in your copy and put your inputs in it (see
-   [Input requirements](#input-requirements)). Git ignores `data/`, so your building data stays on your
-   computer. Don't commit it to a public fork.
+   [Input requirements](#input-requirements)). Git ignores `data/`, so your building data stays local. Don't commit it to a public fork.
 3. Open Claude Code in your copy's folder.
 4. Ask: *Show me the current progress for `TEC`*. The agent runs `pipeline-status.ts`. For a new
    building it reports that the building profile is missing, and the first step is the inventory: the agent
