@@ -103,6 +103,7 @@ route).
 <details>
 <summary>Text version of the diagram</summary>
 
+
 The steps run from top to bottom. **Agent**: Claude Code with the skills, in your session. **Tool**: a script with fixed rules. **Batch**: `claude -p` on each image, without you. Each input is named with its icon label.
 
 **One-time setup: the Brick indexes, shared by all buildings** · *no skill*
