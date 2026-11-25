@@ -8,7 +8,7 @@ The workflow maps a building's data and documentation to a validated semantic da
 cases such as continuous commissioning. The Danish Technological Institute (DTI) developed it as part of an
 Energy Cluster Denmark project. The code, the agent instructions and parts of this documentation were developed with
 [Claude Code](https://claude.com/claude-code), Anthropic's AI coding tool, and reviewed by the project team.
-They can contain errors. Check the results before you rely on them.
+They can contain faults. Always check the results before you rely on them.
 
 Discover the workflow steps [here](#the-workflow).
 
