@@ -215,7 +215,7 @@ semantic data model names the points without it, for example `RAD01_TF1`. The li
 <table>
   <tr>
     <td align="center"><img src="docs/icons/sql-ids.svg" width="40" alt="SQL IDS"></td>
-    <td><a id="input-sql-ids" name="input-sql-ids"></a><b>Input: SQL IDS</b></td>
+    <td><a id="input-sql-ids" name="input-sql-ids"></a><b>Input: SQL IDs</b></td>
   </tr>
   <tr><td>Used because:</td><td>The semantic data model links each point to its data with this id. Each id must belong to the right point, so that the data is linked to the correct point in the semantic data model.</td></tr>
   <tr><td>Formats</td><td>Timeseries: <code>.json</code>, UTF-8. BACnet: no separate file; the ids are the object names in the TAGS object files.</td></tr>
