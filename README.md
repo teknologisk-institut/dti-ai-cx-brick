@@ -618,11 +618,12 @@ The index tools have been tested only on the version provided.
 - The building profile has one rule that maps installation-IFC system names to plants. Systems whose names it
   does not match are left out, so installation models with different naming schemes need one pattern that
   covers them all.
-- For water points of a plant, the supply or return side comes from the screenshots: the side of the linked
-  pump, valve or exchanger. When no screenshot gives it, the workflow looks for fixed words in the point's
-  description and meaning text (`fremløb`, `frem` or `supply`; `returløb`, `retur` or `return`). These words
-  are in the code, not in the point dictionary, so this step works only for Danish or English text. The
-  workflow marks every such point for your review, also when the point dictionary already settles its side.
+- For points of a plant, air and water, the supply or return side comes from the screenshots: the side of
+  the linked equipment, for example a pump, valve or exchanger. When no screenshot gives it, the workflow
+  looks for fixed words in the point's description and meaning text (`fremløb`, `frem` or `supply`;
+  `returløb`, `retur` or `return`). These words are in the code, not in the point dictionary, so this step
+  works only for Danish or English text. The workflow marks every such point for your review, also when the
+  point dictionary already settles its side.
 - The validation is the workflow's own: Turtle syntax, classes, relations and data links, plus a few rules
   taken from the SHACL shapes in the Brick ontology. SHACL is the W3C standard for rules on linked data. The
   workflow does not run a SHACL validator (for example pySHACL), so it does not check all of Brick's SHACL
