@@ -231,7 +231,7 @@ semantic data model names the points without it, for example `RAD01_TF1`. The li
 - An id without a point-list row is listed as unmatched.
 - The units come from this file. Symbols such as `°C` or `m³/h` need an entry in the point dictionary.
 
-**Example id list for** `DEMO-TS`:
+**Example id list in `objects.json` for** `DEMO-TS`:
 
 ```json
 {
