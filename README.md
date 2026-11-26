@@ -28,7 +28,7 @@ building; Turtle is a text format for linked data. You can query the `.ttl` file
 query language for linked data, for example with Apache Jena or Python's rdflib, or import it
 into a graph database (triplestore) such as GraphDB.
 
-For the project one-pager see [a link](https://github.com/teknologisk-institut/dti-ai-cx-brick/blob/main/docs/ai-cx_one-pager.pdf), which describes the project illustrated on the diagram:
+For the project one-pager see [here](https://github.com/teknologisk-institut/dti-ai-cx-brick/blob/main/docs/ai-cx_one-pager.pdf), which describes the project illustrated on the diagram:
 <p align="center">
   <img src="docs/design.png" alt="Project design" width="600">
 </p>
