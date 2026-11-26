@@ -1,0 +1,501 @@
+<title>Point Dictionary Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky header (building tabs + progress) over a section rail and a column of review cards. */
+:root {
+  --bg: #f3f5f4; --surface: #ffffff; --ink: #18211f; --muted: #5d6a66; --line: #d6dddb;
+  --accent: #0f6e63; --accent-ink: #ffffff; --accent-soft: #dcefeb;
+  --bad: #b3261e; --bad-soft: #fbe3e1; --warn: #8a5a00; --warn-soft: #fbefd4;
+  --new: #2d4fa3; --new-soft: #e1e8f8; --ok: #2c6e2f; --ok-soft: #e0f0df;
+  --quote: #f7f8f6;
+  --f-ui: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121715; --surface: #1a211f; --ink: #e4ebe8; --muted: #9aa8a3; --line: #2e3835;
+  --accent: #4fc3b0; --accent-ink: #0b1513; --accent-soft: #173a35;
+  --bad: #ff8a80; --bad-soft: #3a1a18; --warn: #f0c060; --warn-soft: #3a2e12; --new: #9db4ff; --new-soft: #1c2747;
+  --ok: #8fd18f; --ok-soft: #1a3320; --quote: #161c1a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121715; --surface: #1a211f; --ink: #e4ebe8; --muted: #9aa8a3; --line: #2e3835;
+  --accent: #4fc3b0; --accent-ink: #0b1513; --accent-soft: #173a35;
+  --bad: #ff8a80; --bad-soft: #3a1a18; --warn: #f0c060; --warn-soft: #3a2e12; --new: #9db4ff; --new-soft: #1c2747;
+  --ok: #8fd18f; --ok-soft: #1a3320; --quote: #161c1a; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-ui); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1180px; margin: 0 auto; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 12px; }
+h1 { font-size: 18px; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { font: 600 13px var(--f-ui); border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.progress { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar { width: 160px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; }
+.banner { margin: 12px 0 0; padding: 10px 14px; border-radius: 8px; background: var(--warn-soft); color: var(--warn); font-size: 14px; }
+main .wrap { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; padding-block: 20px 60px; }
+@media (max-width: 820px) { main .wrap { grid-template-columns: minmax(0, 1fr); } nav.rail { position: static !important; } }
+nav.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); align-self: start; display: flex; flex-direction: column; gap: 4px; }
+nav.rail a { display: flex; justify-content: space-between; gap: 8px; padding: 6px 10px; border-radius: 6px; color: var(--ink); text-decoration: none; font-size: 14px; }
+nav.rail a:hover, nav.rail a:focus-visible { background: var(--accent-soft); outline: none; }
+nav.rail .n { color: var(--muted); font-variant-numeric: tabular-nums; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+.chip { font: 500 12px var(--f-ui); border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 4px 10px; border-radius: 999px; cursor: pointer; }
+.chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+input[type="search"] { width: 100%; font: 14px var(--f-ui); padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); }
+section.group { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+section.group > h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+section.group > p.lead { margin: -6px 0 0; color: var(--muted); font-size: 14px; max-width: 70ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; border-left-width: 4px; }
+.card[data-reason="contradiction"] { border-left-color: var(--bad); }
+.card[data-reason="flagged"], .card[data-reason="stream-varies"], .card[data-reason="no-role"], .card[data-reason="spread"] { border-left-color: var(--warn); }
+.pill.stream-varies, .pill.no-role, .pill.spread { background: var(--warn-soft); color: var(--warn); }
+.card[data-reason="new-entry"], .card[data-reason="gap"] { border-left-color: var(--new); }
+.card[data-reason="differs-from-pre-existing"], .card[data-reason="unsupported-pre-existing"] { border-left-color: var(--accent); }
+.card.answered { opacity: 0.72; }
+.head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.path { font: 500 14px var(--f-mono); word-break: break-all; }
+.pill { font: 600 11px var(--f-ui); text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; }
+.pill.contradiction { background: var(--bad-soft); color: var(--bad); }
+.pill.flagged { background: var(--warn-soft); color: var(--warn); }
+.pill.new-entry, .pill.gap { background: var(--new-soft); color: var(--new); }
+.pill.differs-from-pre-existing, .pill.unsupported-pre-existing, .pill.data-only, .pill.agrees { background: var(--accent-soft); color: var(--accent); }
+.pill.ans-confirm { background: var(--ok-soft); color: var(--ok); }
+.pill.ans-change { background: var(--new-soft); color: var(--new); }
+.pill.ans-later { background: var(--line); color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 640px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.box h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 0 0 6px; }
+.kv { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 2px 10px; font-size: 14px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.diff { background: var(--warn-soft); border-radius: 3px; padding: 0 3px; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { font: 12px var(--f-mono); background: var(--accent-soft); color: var(--accent); padding: 1px 6px; border-radius: 3px; }
+.notes { margin: 0; padding-left: 18px; font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+.ev { display: flex; flex-direction: column; gap: 8px; }
+.quote { background: var(--quote); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font-size: 14px; }
+.quote q { quotes: none; font-style: italic; overflow-wrap: anywhere; }
+.cite { display: block; font: 12px var(--f-mono); color: var(--muted); margin-top: 4px; overflow-wrap: anywhere; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 13px; width: 100%; }
+th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; }
+td.mono, .mono { font-family: var(--f-mono); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+button.act { font: 600 13px var(--f-ui); padding: 7px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+button.act.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button.act:focus-visible, .tab:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.act:disabled { opacity: 0.5; cursor: not-allowed; }
+form.change { display: grid; gap: 8px; background: var(--quote); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+form.change label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
+form.change input, form.change select, form.change textarea, .comment { font: 14px var(--f-ui); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; width: 100%; }
+.err { color: var(--bad); font-size: 13px; }
+.saved { font-size: 12px; color: var(--muted); }
+details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.empty { color: var(--muted); font-size: 14px; }
+.box.brick { background: var(--quote); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.box.brick h4 { font-size: 12px; margin: 0; color: var(--muted); font-weight: 600; }
+.defs { margin: 0; padding-left: 18px; font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
+.defs .cls { font: 500 13px var(--f-mono); overflow-wrap: anywhere; }
+.defs .def { color: var(--ink); }
+fieldset.opts { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+fieldset.opts label { display: flex; gap: 8px; align-items: baseline; }
+@media (prefers-reduced-motion: no-preference) { .bar > i { transition: width .3s ease; } }
+</style>
+
+<header class="top"><div class="wrap">
+  <h1>Point Dictionary Review</h1>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="progress"><span id="progtext">0 / 0 decided</span><div class="bar"><i id="progbar"></i></div></div>
+</div><div class="wrap" id="bannerwrap"></div></header>
+
+<main><div class="wrap">
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+  <div id="content" style="min-width:0"></div>
+</div></main>
+
+<script id="review-data" type="application/json">/*__DATA__*/</script>
+<script>
+(function () {
+  const DATA = JSON.parse(document.getElementById("review-data").textContent);
+  const BRICK = new Set(DATA.brickTags || []);
+  const REASON_LABEL = {
+    "contradiction": "Contradiction", "flagged": "Flagged by drafter", "stream-varies": "Stream varies by point", "no-role": "No role tag", "spread": "Rule catches more than cited", "new-entry": "New entry", "gap": "No evidence",
+    "differs-from-pre-existing": "Differs from current", "unsupported-pre-existing": "No new evidence",
+    "data-only": "Data only", "agrees": "Agrees",
+  };
+  const state = { building: null, answers: new Map(), groups: new Map(), filter: "all", q: "", db: null, writable: true };
+  try { const t = localStorage.getItem("pdr-tab"); if (t) state.building = t; } catch (e) {}
+  if (!DATA.buildings.some(b => b.id === state.building)) state.building = DATA.buildings[0].id;
+
+  const docId = (b, kind, p) => (b + "~" + kind + "~" + p).replace(/\[/g, "~").replace(/\]/g, "").replace(/[^A-Za-z0-9_\-.~:@+]/g, "_");
+  const el = (tag, attrs, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k === "class") n.className = v; else if (k === "text") n.textContent = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const c of kids.flat()) if (c != null && c !== false) n.append(c instanceof Node ? c : String(c));
+    return n;
+  };
+  const B = () => DATA.buildings.find(b => b.id === state.building);
+
+  function answerFor(b, kind, p) { return state.answers.get(docId(b, kind, p)); }
+  function groupConfirmed(b, bucket) { return state.groups.get(b + "~" + bucket); }
+  function decided(b, it) {
+    const a = answerFor(b, "entry", it.path);
+    if (a && a.decision !== "later") return true;
+    if ((it.bucket === "dataOnly" || it.bucket === "agrees") && groupConfirmed(b, it.bucket)) return true;
+    return it.bucket === "done";
+  }
+  function legendDecided(b, r) {
+    const a = answerFor(b, "legend", String(r.index));
+    if (a && a.decision !== "later") return true;
+    return !r.bad && !!groupConfirmed(b, "legend");
+  }
+
+  async function save(kind, path, body) {
+    if (!state.db) return "Answers can't be saved in this view.";
+    const b = state.building;
+    try {
+      await state.db.collection("answers").doc(docId(b, kind, path)).set({ building: b, kind, path, ...body, at: new Date().toISOString() });
+      return null;
+    } catch (e) { state.writable = false; return "Couldn't save: " + (e && e.message ? e.message : "unknown error") + "."; }
+  }
+  async function saveGroup(bucket, on) {
+    if (!state.db) return;
+    try { await state.db.collection("groups").doc(docId(state.building, "group", bucket)).set({ building: state.building, bucket, confirmed: on, at: new Date().toISOString() }); }
+    catch (e) { state.writable = false; render(); }
+  }
+
+  function tagsView(tags, other) {
+    if (!tags || !tags.length) return el("span", { class: "empty", text: "none" });
+    const o = new Set(other || []);
+    return el("span", { class: "tags" }, tags.map(t => el("span", { class: "tag" + (other && !o.has(t) ? " diff" : ""), text: t })));
+  }
+  function fieldBox(title, e, other) {
+    if (!e) return el("div", { class: "box" }, el("h3", { text: title }), el("p", { class: "empty", text: "No entry." }));
+    const dl = el("dl", { class: "kv" });
+    const row = (k, v, changed) => dl.append(el("dt", { text: k }), el("dd", {}, changed ? el("span", { class: "diff" }, v) : v));
+    const differs = (k) => other && JSON.stringify(e[k] ?? null) !== JSON.stringify(other[k] ?? null);
+    if (e.pattern != null) row("pattern", el("span", { class: "mono", text: e.pattern + (e.flags ? " /" + e.flags : "") }));
+    if (e.meaning != null) row("meaning", e.meaning, differs("meaning"));
+    if (e.category != null) row("category", e.category, differs("category"));
+    if (e.tags !== undefined || title === "Proposed") row("tags", tagsView(e.tags, other && other.tags));
+    if (e.danishGloss) row("Danish", e.danishGloss);
+    if (e.type) row("type", e.type);
+    if (e.abbreviations) row("tokens", el("span", { class: "mono", text: e.abbreviations.join(", ") }));
+    if (e.prefixes && e.prefixes.length) row("prefixes", el("span", { class: "mono", text: e.prefixes.join(", ") }));
+    if (title === "Current" && e.source) row("source", el("span", { class: "empty", text: e.source }));
+    return el("div", { class: "box" }, el("h3", { text: title }), dl);
+  }
+  function evidenceView(ev) {
+    const wrap = el("div", { class: "ev" });
+    for (const x of ev) {
+      if (x.kind === "doc") wrap.append(el("div", { class: "quote" }, el("q", { text: x.quote }), el("span", { class: "cite", text: x.file.replace(/^docs-unsorted\//, "") + " · " + x.location })));
+      else if (x.kind === "data") wrap.append(el("div", { class: "tablewrap" }, el("table", {},
+        el("thead", {}, el("tr", {}, el("th", { text: "Point (" + x.count + " in data)" }), el("th", { text: "Point-list description" }))),
+        el("tbody", {}, x.rows.map(r => el("tr", {}, el("td", { class: "mono", text: r.pointId }), el("td", { text: r.description }))))
+      )));
+      else if (x.kind === "human") wrap.append(el("div", { class: "quote" }, el("q", { text: x.answer }), el("span", { class: "cite", text: "your answer · " + x.date })));
+      else if (x.kind === "pre-existing") wrap.append(el("p", { class: "saved", text: "Pre-existing decision: " + x.source }));
+    }
+    if (!ev.length) wrap.append(el("p", { class: "empty", text: "No evidence." }));
+    return wrap;
+  }
+
+  // Brick: classes whose tags (minus Point/Equipment) all appear in the entry's tags, most specific first.
+  const BC = DATA.brickClasses || {}, SUB = DATA.substances || {};
+  const STREAMS = ["Supply", "Discharge", "Return", "Exhaust", "Relief", "Outside", "Mixed", "Zone", "Building", "Bypass", "Leaving", "Entering"];
+  function fits(tags) {
+    const s = new Set(tags);
+    return Object.entries(BC).filter(([, e]) => e.t.length && e.t.every(t => s.has(t)))
+      .sort((a, b) => (b[1].t.length - a[1].t.length) || a[0].localeCompare(b[0]));
+  }
+  const defItem = (k, e, prefix) => el("li", {}, prefix ? el("span", { class: "saved", text: prefix + " → " }) : null, el("span", { class: "cls", text: k }),
+    el("span", { class: "saved", text: "  (" + e.t.join(", ") + ")" }), e.d ? el("div", { class: "def", text: e.d }) : el("div", { class: "empty", text: "Brick gives no definition." }));
+  function substancesFor(tags) {
+    const s = new Set(tags);
+    return Object.entries(SUB).filter(([, v]) => v.definition && v.label.split(/\s+/).every(w => s.has(w)))
+      .sort((a, b) => b[1].label.split(/\s+/).length - a[1].label.split(/\s+/).length).slice(0, 2);
+  }
+  function brickView(tags) {
+    const box = el("div", { class: "box brick" }, el("h3", { text: "What Brick makes of these tags" }));
+    if (!tags || !tags.length) { box.append(el("p", { class: "empty", text: "No tags." })); return box; }
+    const f = fits(tags);
+    box.append(el("h4", { text: "Classes these tags fit (most specific first; classification also weighs units and context)" }));
+    if (!f.length) box.append(el("p", { class: "empty", text: "No Brick class has all its tags in this set." }));
+    else {
+      box.append(el("ul", { class: "defs" }, f.slice(0, 3).map(([k, e]) => defItem(k, e))));
+      const unused = tags.filter(t => !f[0][1].t.includes(t));
+      if (unused.length) box.append(el("p", { class: "saved", text: "Tags " + f[0][0] + " doesn't use: " + unused.join(", ") }));
+    }
+    const subs = substancesFor(tags);
+    if (subs.length) box.append(el("h4", { text: "Brick's definition of the medium" }), el("ul", { class: "defs" }, subs.map(([k, v]) => el("li", {}, el("span", { class: "cls", text: v.label }), el("div", { class: "def", text: v.definition })))));
+    const best = f.length ? f[0][0] : null, alt = [];
+    for (const d of tags.filter(t => STREAMS.includes(t))) for (const a of STREAMS) {
+      if (a === d || tags.includes(a)) continue;
+      const g = fits(tags.map(t => t === d ? a : t)).find(([, e]) => e.t.includes(a));
+      if (g && g[0] !== best && !alt.some(x => x[1][0] === g[0])) alt.push([a, g]);
+    }
+    if (alt.length) box.append(el("details", {}, el("summary", { text: "Same thing on another air or water stream (" + alt.length + ")" }),
+      el("ul", { class: "defs" }, alt.map(([a, g]) => defItem(g[0], g[1], a)))));
+    return box;
+  }
+
+  function changeForm(it, existing, done) {
+    const p = it.proposal || {};
+    const base = existing || {};
+    const meaning = el("input", { id: "m-" + docId(state.building, "entry", it.path), value: base.meaning ?? p.meaning ?? "" });
+    const cat = el("select", { id: "c-" + docId(state.building, "entry", it.path) }, DATA.categories.map(c => el("option", { value: c, text: c, selected: (base.category ?? p.category) === c })));
+    const tags = el("input", { id: "t-" + docId(state.building, "entry", it.path), value: (base.tags ?? p.tags ?? []).join(", "), placeholder: "e.g. Supply, Air, Temperature, Sensor" });
+    const comment = el("textarea", { id: "n-" + docId(state.building, "entry", it.path), rows: "2", placeholder: "Why (stored as your evidence on the entry)" }, base.comment || "");
+    const err = el("p", { class: "err", hidden: true });
+    const tagList0 = () => tags.value.split(",").map(s => s.trim()).filter(Boolean);
+    const live = el("div", {}, brickView(tagList0()));
+    tags.addEventListener("input", () => live.replaceChildren(brickView(tagList0())));
+    const form = el("form", { class: "change" },
+      p.meaning != null ? el("label", {}, "Meaning", meaning) : null,
+      p.category != null ? el("label", {}, "Category", cat) : null,
+      (p.tags !== undefined || p.meaning != null) ? el("label", {}, "Brick tags, comma-separated", tags) : null,
+      (p.tags !== undefined || p.meaning != null) ? live : null,
+      el("label", {}, "Your reason", comment), err,
+      el("div", { class: "actions" }, el("button", { class: "act primary", type: "submit", text: "Save change" }), el("button", { class: "act", type: "button", text: "Cancel", onclick: () => done(false) })));
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const tagList = tags.value.split(",").map(s => s.trim()).filter(Boolean);
+      const bad = tagList.filter(t => BRICK.size && !BRICK.has(t));
+      const roles = tagList.filter(t => ["Sensor", "Setpoint", "Command", "Status", "Alarm", "Parameter"].includes(t));
+      if (bad.length) { err.textContent = "Not Brick tags: " + bad.join(", ") + "."; err.hidden = false; return; }
+      if (roles.length > 1) { err.textContent = "At most one role tag (" + roles.join(", ") + ")."; err.hidden = false; return; }
+      if (!comment.value.trim()) { err.textContent = "Add a short reason; it becomes the entry's evidence."; err.hidden = false; return; }
+      const body = { decision: "change", comment: comment.value.trim() };
+      if (p.meaning != null) body.meaning = meaning.value.trim();
+      if (p.category != null) body.category = cat.value;
+      if (p.tags !== undefined || p.meaning != null) body.tags = tagList;
+      const m = await save("entry", it.path, body);
+      if (m) { err.textContent = m; err.hidden = false; return; }
+      done(true);
+    });
+    return form;
+  }
+
+  function itemCard(it) {
+    const b = state.building;
+    const a = answerFor(b, "entry", it.path);
+    const card = el("article", { class: "card" + (a && a.decision !== "later" ? " answered" : ""), "data-reason": it.reason, id: docId(b, "entry", it.path) });
+    const head = el("div", { class: "head" }, el("span", { class: "path", text: it.path }), el("span", { class: "pill " + it.reason, text: REASON_LABEL[it.reason] || it.reason }));
+    if (it.review && it.review.docVsData && it.review.docVsData !== "n/a") head.append(el("span", { class: "saved", text: "doc vs data: " + it.review.docVsData }));
+    if (a) head.append(el("span", { class: "pill ans-" + a.decision, text: a.decision === "confirm" ? "Confirmed" : a.decision === "change" ? "Changed" : "Later" }));
+    card.append(head);
+    card.append(el("div", { class: "cols" }, fieldBox("Proposed", it.proposal, it.current), fieldBox("Current", it.current, null)));
+    if (it.proposal && (it.proposal.tags || []).length) card.append(brickView(it.proposal.tags));
+    if ((B().airQuestion || []).includes(it.path)) card.append(el("p", { class: "saved" }, "Also covered by the building-wide ", el("a", { href: "#questions", text: "extract-air question" }), "; a change here wins over that answer."));
+    const notes = (it.notes || []).filter(n => !/^otherwise: /.test(n)).map(n => n.replace(/^flagged: /, ""));
+    if (notes.length) card.append(el("div", { class: "box" }, el("h3", { text: "Notes" }), el("ul", { class: "notes" }, notes.map(n => el("li", { text: n })))));
+    card.append(el("details", { open: it.bucket === "one" }, el("summary", { text: "Evidence (" + it.evidence.length + ")" }), evidenceView(it.evidence)));
+    if (a && a.decision === "change") card.append(el("p", { class: "saved", text: "Your change: " + [a.meaning, a.category, a.tags && a.tags.join(", ")].filter(Boolean).join(" · ") + " — " + a.comment }));
+    const slot = el("div", {});
+    const actions = el("div", { class: "actions" },
+      el("button", { class: "act primary", type: "button", text: "Confirm", disabled: !state.db, onclick: async () => { const m = await save("entry", it.path, { decision: "confirm" }); if (m) alert1(slot, m); } }),
+      el("button", { class: "act", type: "button", text: "Change…", disabled: !state.db, onclick: () => { slot.replaceChildren(changeForm(it, a && a.decision === "change" ? a : null, () => slot.replaceChildren())); } }),
+      el("button", { class: "act", type: "button", text: "Later", disabled: !state.db, onclick: async () => { const m = await save("entry", it.path, { decision: "later" }); if (m) alert1(slot, m); } }),
+      a ? el("span", { class: "saved", text: "saved " + new Date(a.at).toLocaleString() }) : null);
+    card.append(actions, slot);
+    return card;
+  }
+  function alert1(slot, msg) { slot.replaceChildren(el("p", { class: "err", text: msg })); }
+
+  function groupSection(id, title, lead, items, bucket) {
+    const b = state.building;
+    const on = !!groupConfirmed(b, bucket);
+    const sec = el("section", { class: "group", id });
+    sec.append(el("h2", {}, title, el("span", { class: "n", text: items.length + " entries" })));
+    sec.append(el("p", { class: "lead", text: lead }));
+    sec.append(el("div", { class: "actions" },
+      el("button", { class: "act" + (on ? "" : " primary"), type: "button", disabled: !state.db || !items.length, text: on ? "Undo confirm all" : "Confirm all " + items.length,
+        onclick: () => saveGroup(bucket, !on) }),
+      on ? el("span", { class: "saved", text: "Confirmed as a group. Open an entry below to change it individually." }) : null));
+    const list = el("div", { class: "tablewrap" }, el("table", {},
+      el("thead", {}, el("tr", {}, el("th", { text: "Entry" }), el("th", { text: "Meaning" }), el("th", { text: "Category" }), el("th", { text: "Tags" }), el("th", { text: "Answer" }))),
+      el("tbody", {}, items.map(it => {
+        const a = answerFor(b, "entry", it.path);
+        return el("tr", {}, el("td", { class: "mono" }, el("a", { href: "#" + docId(b, "entry", it.path), text: it.path, onclick: (e) => { e.preventDefault(); openSingle(it); } })),
+          el("td", { text: (it.proposal && (it.proposal.meaning || it.proposal.pattern)) || "" }), el("td", { text: (it.proposal && it.proposal.category) || "" }),
+          el("td", {}, tagsView(it.proposal && it.proposal.tags)), el("td", { text: a ? a.decision : (on ? "group" : "") }));
+      }))));
+    sec.append(list, el("div", { id: "single-" + bucket }));
+    return sec;
+  }
+  function openSingle(it) {
+    const host = document.getElementById("single-" + it.bucket);
+    if (!host) return;
+    host.replaceChildren(itemCard(it));
+    host.scrollIntoView({ block: "nearest" });
+  }
+
+  function legendSection(bd) {
+    const b = state.building, on = !!groupConfirmed(b, "legend");
+    const sec = el("section", { class: "group", id: "legend" });
+    sec.append(el("h2", {}, "Abbreviations legend", el("span", { class: "n", text: bd.legend.length + " rows" })));
+    sec.append(el("p", { class: "lead", text: "How the drafter accounted for each row of the contractor's legend. Rows marked in red need a decision; confirm the rest as a group or change single rows." }));
+    sec.append(el("div", { class: "actions" }, el("button", { class: "act" + (on ? "" : " primary"), type: "button", disabled: !state.db, text: on ? "Undo confirm all" : "Confirm all rows", onclick: () => saveGroup("legend", !on) })));
+    const rows = [...bd.legend].sort((x, y) => (y.bad - x.bad) || (x.row - y.row));
+    sec.append(el("div", { class: "tablewrap" }, el("table", {},
+      el("thead", {}, el("tr", {}, el("th", { text: "Row" }), el("th", { text: "Legend text" }), el("th", { text: "Disposition" }), el("th", { text: "Note" }), el("th", { text: "Your answer" }))),
+      el("tbody", {}, rows.map(r => {
+        const a = answerFor(b, "legend", String(r.index));
+        const inp = el("input", { class: "comment", id: "lg-" + r.index, value: a && a.disposition ? a.disposition : r.disposition || "", "aria-label": "Disposition for row " + r.row });
+        const status = el("span", { class: "saved", text: a ? a.decision : "" });
+        return el("tr", {}, el("td", { class: "mono", text: String(r.row) }), el("td", { text: r.text }),
+          el("td", {}, inp), el("td", { class: r.bad ? "err" : "", text: r.note || "" }),
+          el("td", {}, el("div", { class: "actions" },
+            el("button", { class: "act", type: "button", text: "Save", disabled: !state.db, onclick: async () => {
+              const v = inp.value.trim(); const ok = /^(entry:.+|plant-id|point-id|meter-id|wildcard|not-in-data|not-a-token)$/.test(v);
+              if (!ok) { status.textContent = "Use entry:<path>, plant-id, point-id, meter-id, wildcard, not-in-data or not-a-token."; status.className = "err"; return; }
+              const m = await save("legend", String(r.index), { decision: v === r.disposition ? "confirm" : "change", disposition: v, row: r.row, file: r.file });
+              if (m) { status.textContent = m; status.className = "err"; }
+            } }), status)));
+      })))));
+    return sec;
+  }
+
+  function accountingSection(bd) {
+    const sec = el("section", { class: "group", id: "noevidence" });
+    const tokens = [...new Set(bd.accounting.map(l => (l.match(/data point (\S+)/) || [])[1]).filter(Boolean))];
+    sec.append(el("h2", {}, "Points nothing explains", el("span", { class: "n", text: tokens.length + " points" })));
+    sec.append(el("p", { class: "lead", text: "No dictionary entry decides these points, and neither the documents nor the point list says what they are. Tell me what each one is (or that it can stay undecoded)." }));
+    for (const id of tokens) {
+      const a = answerFor(state.building, "point", id);
+      const ta = el("textarea", { class: "comment", id: "pt-" + id, rows: "2", placeholder: "What is this point?" }, a ? a.comment : "");
+      const st = el("span", { class: "saved", text: a ? "saved" : "" });
+      sec.append(el("article", { class: "card", "data-reason": "gap" }, el("div", { class: "head" }, el("span", { class: "path", text: id })), ta,
+        el("div", { class: "actions" }, el("button", { class: "act primary", type: "button", text: "Save answer", disabled: !state.db, onclick: async () => {
+          if (!ta.value.trim()) return; const m = await save("point", id, { decision: "answer", comment: ta.value.trim() }); st.textContent = m || "saved"; } }), st)));
+    }
+    if (!tokens.length) sec.append(el("p", { class: "empty", text: "None for this building." }));
+    return sec;
+  }
+
+  const AIR_OPTS = [
+    ["return", "Without an image, udsugning (extract from the rooms back to the air handling unit) is Return; afkast (leaving the building) is Exhaust."],
+    ["exhaust", "Udsugning is Exhaust everywhere, as drafted."],
+    ["mixed", "It depends on the entry; my comment says which are which."],
+  ];
+  function questionSection(bd) {
+    const sec = el("section", { class: "group", id: "questions" });
+    sec.append(el("h2", {}, "Questions for the whole building", el("span", { class: "n", text: "1" })));
+    const a = answerFor(bd.id, "question", "air-extract");
+    const rd = (k) => (SUB["brick:" + k] || {}).definition || "";
+    const card = el("article", { class: "card" + (a ? " answered" : ""), "data-reason": "flagged" },
+      el("div", { class: "head" }, el("span", { class: "path", text: "Extract air: Return or Exhaust?" }), a ? el("span", { class: "pill ans-confirm", text: "Answered" }) : null),
+      el("p", { text: "Where a plant image places the point, its position decides (before the heat-recovery wheel = Return, after it = Exhaust; the contractor writes \"udsugning\" for both). This question is for points without that: zone points and points no image covers, where the description is the evidence. Brick defines the streams like this:" }),
+      el("div", { class: "box brick" }, el("ul", { class: "defs" },
+        el("li", {}, el("span", { class: "cls", text: "Return Air" }), el("div", { class: "def", text: rd("Return_Air") })),
+        el("li", {}, el("span", { class: "cls", text: "Exhaust Air" }), el("div", { class: "def", text: rd("Exhaust_Air") })),
+        el("li", {}, el("span", { class: "cls", text: "Relief Air" }), el("div", { class: "def", text: rd("Relief_Air") || "Brick gives no definition." })))),
+      el("details", {}, el("summary", { text: "Entries this answer applies to (" + (bd.airQuestion || []).length + ")" }),
+        el("p", { class: "mono", text: (bd.airQuestion || []).join("  ·  ") || "none" })));
+    const opts = el("fieldset", { class: "opts" }, el("legend", { class: "saved", text: "Your answer (a change on a single entry wins over this)" }),
+      AIR_OPTS.map(([v, t]) => el("label", {}, el("input", { type: "radio", name: "air-" + bd.id, value: v, checked: !!(a && a.choice === v) }), t)));
+    const ta = el("textarea", { class: "comment", rows: "2", placeholder: "Comment: exceptions, e.g. toilet extraction is Exhaust" }, a && a.comment ? a.comment : "");
+    const st = el("span", { class: "saved", text: a ? "saved " + new Date(a.at).toLocaleString() : "" });
+    card.append(opts, ta, el("div", { class: "actions" }, el("button", { class: "act primary", type: "button", text: "Save answer", disabled: !state.db, onclick: async () => {
+      const c = opts.querySelector("input:checked");
+      if (!c) { st.textContent = "Pick one of the answers."; st.className = "err"; return; }
+      if (c.value === "mixed" && !ta.value.trim()) { st.textContent = "Say in the comment which entries are which."; st.className = "err"; return; }
+      const m = await save("question", "air-extract", { decision: "answer", choice: c.value, comment: ta.value.trim() });
+      st.textContent = m || "saved"; st.className = m ? "err" : "saved";
+    } }), st));
+    sec.append(card);
+    return sec;
+  }
+  function glossarySection() {
+    const up = (k) => { const seen = []; let p = SUB[k] && SUB[k].broader; while (p && !seen.includes(p)) { seen.push(p); p = SUB[p] && SUB[p].broader; } return seen; };
+    const rows = Object.entries(SUB).filter(([k, v]) => v.definition && (up(k).includes("brick:Air") || up(k).includes("brick:Water") || k === "brick:Air" || k === "brick:Water"))
+      .sort((a, b) => a[1].label.localeCompare(b[1].label));
+    return el("section", { class: "group", id: "glossary" },
+      el("h2", {}, "Brick terms for air and water", el("span", { class: "n", text: rows.length + " terms" })),
+      el("p", { class: "lead", text: "Brick's own definitions of the media and streams its tags name, from Brick nightly. Tags themselves carry no definition in Brick." }),
+      el("div", { class: "tablewrap" }, el("table", {}, el("thead", {}, el("tr", {}, el("th", { text: "Term" }), el("th", { text: "Definition" }))),
+        el("tbody", {}, rows.map(([, v]) => el("tr", {}, el("td", { text: v.label }), el("td", { text: v.definition })))))));
+  }
+
+  function render() {
+    const bd = B();
+    const tabs = document.getElementById("tabs");
+    tabs.replaceChildren(...DATA.buildings.map(b => el("button", { class: "tab", role: "tab", "aria-selected": String(b.id === state.building), text: b.id,
+      onclick: () => { state.building = b.id; try { localStorage.setItem("pdr-tab", b.id); } catch (e) {} render(); } })));
+    const banner = document.getElementById("bannerwrap");
+    banner.replaceChildren(!state.db ? el("p", { class: "banner", text: state.dbChecked ? "Answers can't be saved in this view. Open the page from your claude.ai gallery while signed in." : "Connecting to the answer store…" })
+      : !state.writable ? el("p", { class: "banner", text: "Your answers aren't being saved. Check that you're signed in as the page's owner, then reload." }) : null);
+
+    const one = bd.items.filter(i => i.bucket === "one");
+    const dataOnly = bd.items.filter(i => i.bucket === "dataOnly");
+    const agrees = bd.items.filter(i => i.bucket === "agrees");
+    const tokens = new Set(bd.accounting.map(l => (l.match(/data point (\S+)/) || [])[1]).filter(Boolean));
+    const total = bd.items.length + bd.legend.length + tokens.size + 1;
+    const done = bd.items.filter(i => decided(bd.id, i)).length + bd.legend.filter(r => legendDecided(bd.id, r)).length + [...tokens].filter(t => answerFor(bd.id, "point", t)).length
+      + (answerFor(bd.id, "question", "air-extract") ? 1 : 0);
+    document.getElementById("progtext").textContent = done + " / " + total + " decided";
+    document.getElementById("progbar").style.width = (total ? (100 * done / total) : 0) + "%";
+
+    const rail = document.getElementById("rail");
+    const link = (id, label, n) => el("a", { href: "#" + id, onclick: (e) => { e.preventDefault(); const t = document.getElementById(id); if (t) t.scrollIntoView({ block: "start" }); } }, el("span", { text: label }), el("span", { class: "n", text: String(n) }));
+    rail.replaceChildren(link("questions", "Building questions", 1), link("one", "One at a time", one.length), link("dataonly", "Data only", dataOnly.length), link("agrees", "Agrees", agrees.length),
+      bd.legend.length ? link("legend", "Legend rows", bd.legend.length) : null, link("noevidence", "Unexplained points", tokens.size),
+      bd.info.length ? link("info", "For information", bd.info.length) : null, link("glossary", "Brick air & water terms", ""));
+
+    const content = document.getElementById("content");
+    const reasons = [...new Set(one.map(i => i.reason))];
+    const search = el("input", { type: "search", id: "q", placeholder: "Filter by entry, meaning or note", value: state.q, oninput: (e) => { state.q = e.target.value; drawOne(); } });
+    const chips = el("div", { class: "filters" }, ["all", "open", ...reasons].map(r => el("button", { class: "chip", type: "button", "aria-pressed": String(state.filter === r),
+      text: r === "all" ? "All" : r === "open" ? "Not answered" : REASON_LABEL[r] || r, onclick: () => { state.filter = r; render(); } })));
+    const oneList = el("div", { class: "group", style: "margin:0" });
+    function drawOne() {
+      const q = state.q.toLowerCase();
+      const shown = one.filter(i => state.filter === "all" || (state.filter === "open" ? !answerFor(bd.id, "entry", i.path) : i.reason === state.filter))
+        .filter(i => !q || (i.path + " " + JSON.stringify(i.proposal) + " " + i.notes.join(" ")).toLowerCase().includes(q));
+      oneList.replaceChildren(...(shown.length ? shown.map(itemCard) : [el("p", { class: "empty", text: "Nothing matches this filter." })]));
+    }
+    drawOne();
+    const oneSec = el("section", { class: "group", id: "one" },
+      el("h2", {}, "One at a time", el("span", { class: "n", text: one.length + " entries" })),
+      el("p", { class: "lead", text: "Contradictions between the documents and the point list, entries the drafter flagged, new entries, and entries with nothing new to support them. Confirm the proposal, change it, or leave it for later." }),
+      search, chips, oneList);
+    content.replaceChildren(questionSection(bd), oneSec,
+      groupSection("dataonly", "Data only", "No document mentions these; the meaning comes from the point list's own descriptions. Confirm them as a group, or open one to change it.", dataOnly, "dataOnly"),
+      groupSection("agrees", "Agrees", "The documents and the point list agree, or the current entry is supported by new evidence. Listed for completeness.", agrees, "agrees"),
+      bd.legend.length ? legendSection(bd) : null,
+      accountingSection(bd),
+      bd.info.length ? el("section", { class: "group", id: "info" }, el("h2", {}, "For information", el("span", { class: "n", text: String(bd.info.length) })),
+        el("ul", { class: "notes" }, bd.info.map(l => el("li", { text: l })))) : null,
+      glossarySection());
+  }
+
+  render();
+  (async () => {
+    try {
+      const db = await (window.claude && window.claude.use ? window.claude.use("db") : null);
+      state.dbChecked = true;
+      if (!db) { render(); return; }
+      state.db = db;
+      db.collection("answers").onSnapshot((snap) => {
+        state.answers = new Map(snap.docs.map(d => [d.id, d.data()]));
+        render();
+      }, () => { state.writable = false; render(); });
+      db.collection("groups").onSnapshot((snap) => {
+        state.groups = new Map(snap.docs.filter(d => d.data().confirmed).map(d => [d.data().building + "~" + d.data().bucket, true]));
+        render();
+      }, () => {});
+      render();
+    } catch (e) { state.dbChecked = true; render(); }
+  })();
+})();
+</script>

@@ -1,0 +1,5 @@
+# Dependencies (regenerate via `npm install`)
+node_modules/
+
+# Building data: each building's inputs, profile, dictionary and outputs stay on your computer
+data/

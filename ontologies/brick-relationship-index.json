@@ -1,0 +1,820 @@
+{
+  "meta": {
+    "source": "Brick_nightly.ttl",
+    "generatedAt": "2026-11-25T08:45:07.982Z",
+    "totalRelationships": 32,
+    "totalRefTypes": 4,
+    "totalRefProperties": 5,
+    "totalSpatialClasses": 11,
+    "totalRoomSubtypes": 52
+  },
+  "prefixes": {
+    "brick": "https://brickschema.org/schema/Brick#",
+    "rec": "https://w3id.org/rec#",
+    "ref": "https://brickschema.org/schema/Brick/ref#"
+  },
+  "relationships": {
+    "brick:hasAmbientTemperature": {
+      "label": "hasAmbientTemperature",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:hasInputSubstance": {
+      "label": "Has input substance",
+      "definition": "The subject receives the given substance as an input to its internal process",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Substance"
+      ]
+    },
+    "brick:hasOutputSubstance": {
+      "label": "Has output substance",
+      "definition": "The subject produces or exports the given substance from its internal process",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Substance"
+      ]
+    },
+    "brick:hasQUDTReference": {
+      "label": "Has QUDT reference",
+      "definition": "Points to the relevant QUDT definition",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:isReplacedBy": {
+      "label": "Is replaced by",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Entity"
+      ]
+    },
+    "brick:aliasOf": {
+      "label": "aliasOf",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Entity"
+      ]
+    },
+    "brick:hasAssociatedTag": {
+      "label": "Has associated tag",
+      "definition": "The class is associated with the given tag",
+      "inverse": "brick:isAssociatedWith",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Tag"
+      ]
+    },
+    "brick:hasSubMeter": {
+      "label": "has sub-meter",
+      "definition": "Indicates a submeter of this meter",
+      "inverse": "brick:isSubMeterOf",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Meter"
+      ]
+    },
+    "brick:isAssociatedWith": {
+      "label": "Is associated with",
+      "definition": "The tag is associated with the given class",
+      "inverse": "brick:hasAssociatedTag",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:isLocationOf": {
+      "label": "Is location of",
+      "definition": "Subject is the physical location encapsulating the object",
+      "inverse": "brick:hasLocation",
+      "symmetric": false,
+      "equivalentProperty": "rec:isLocationOf",
+      "domain": [],
+      "range": [
+        "brick:Entity"
+      ]
+    },
+    "brick:isSubMeterOf": {
+      "label": "is sub-meter of",
+      "definition": "Indicates the parent for which this meter is a submeter",
+      "inverse": "brick:hasSubMeter",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Meter"
+      ]
+    },
+    "brick:isTagOf": {
+      "label": "Is tag of",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Entity",
+        "brick:Measurable",
+        "rec:Collection"
+      ]
+    },
+    "brick:controls": {
+      "label": "Controls",
+      "definition": "",
+      "inverse": "brick:isControlledBy",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Equipment"
+      ]
+    },
+    "brick:deprecationMitigationRule": {
+      "label": "deprecationMitigationRule",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:hasSubstance": {
+      "label": "Has Substance",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Substance"
+      ]
+    },
+    "brick:hosts": {
+      "label": "Hosts point",
+      "definition": "",
+      "inverse": "brick:isHostedBy",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Point"
+      ]
+    },
+    "brick:isControlledBy": {
+      "label": "Is controlled by",
+      "definition": "",
+      "inverse": "brick:controls",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Controller"
+      ]
+    },
+    "brick:isFedBy": {
+      "label": "Is fed by",
+      "definition": "",
+      "inverse": "brick:feeds",
+      "symmetric": false,
+      "equivalentProperty": "rec:isFedBy",
+      "domain": [],
+      "range": []
+    },
+    "brick:isHostedBy": {
+      "label": "Is hosted by",
+      "definition": "",
+      "inverse": "brick:hosts",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:ICT_Equipment"
+      ]
+    },
+    "brick:isMeteredBy": {
+      "label": "is metered by",
+      "definition": "Indicates the meter measuring the consumption/production of some substance by the subject entity",
+      "inverse": "brick:meters",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Meter"
+      ]
+    },
+    "brick:ambientTemperatureOfMeasurement": {
+      "label": "ambientTemperatureOfMeasurement",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:deprecation": {
+      "label": "Deprecation Notice",
+      "definition": "Marks a concept as deprecated",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:hasLocation": {
+      "label": "Has location",
+      "definition": "Subject is physically located in the location given by the object",
+      "inverse": "brick:isLocationOf",
+      "symmetric": false,
+      "equivalentProperty": "rec:locatedIn",
+      "domain": [],
+      "range": [
+        "brick:Location",
+        "rec:Architecture"
+      ]
+    },
+    "brick:hasPoint": {
+      "label": "Has point",
+      "definition": "The subject has a source of telemetry identified by the object. In some systems the source of telemetry may be represented as a digital/analog input/output point",
+      "inverse": "brick:isPointOf",
+      "symmetric": false,
+      "equivalentProperty": "rec:hasPoint",
+      "domain": [],
+      "range": [
+        "brick:Point"
+      ]
+    },
+    "brick:hasQuantity": {
+      "label": "Has Quantity",
+      "definition": "",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Quantity"
+      ]
+    },
+    "brick:isPointOf": {
+      "label": "Is point of",
+      "definition": "The subject is a source of telemetry related to the object. In some systems the source of telemetry may be represented as a digital/analog input/output point",
+      "inverse": "brick:hasPoint",
+      "symmetric": false,
+      "equivalentProperty": "rec:isPointOf",
+      "domain": [
+        "brick:Point"
+      ],
+      "range": [
+        "brick:Equipment",
+        "brick:Location",
+        "rec:Architecture",
+        "rec:Space"
+      ]
+    },
+    "brick:meters": {
+      "label": "meters",
+      "definition": "Indicates the entity whose consumption/production of some substance is measured by this meter.",
+      "inverse": "brick:isMeteredBy",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Equipment",
+        "brick:Location",
+        "rec:Collection",
+        "rec:Architecture"
+      ]
+    },
+    "brick:isPartOf": {
+      "label": "Is part of",
+      "definition": "",
+      "inverse": "brick:hasPart",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:feeds": {
+      "label": "Feeds",
+      "definition": "The subject is upstream of the object in the context of some sequential process; some media is passed between them",
+      "inverse": "brick:isFedBy",
+      "symmetric": false,
+      "equivalentProperty": "rec:feeds",
+      "domain": [],
+      "range": []
+    },
+    "brick:hasPart": {
+      "label": "Has part",
+      "definition": "The subject is composed in part of the entity given by the object",
+      "inverse": "brick:isPartOf",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:hasUnit": {
+      "label": "Has unit",
+      "definition": "The QUDT unit associated with this Brick entity (usually a Brick Point instance or Entity Property)",
+      "inverse": null,
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": []
+    },
+    "brick:hasTag": {
+      "label": "Has tag",
+      "definition": "The subject has the given tag",
+      "inverse": "brick:isTagOf",
+      "symmetric": false,
+      "equivalentProperty": null,
+      "domain": [],
+      "range": [
+        "brick:Tag"
+      ]
+    }
+  },
+  "inversePairs": [
+    [
+      "brick:controls",
+      "brick:isControlledBy"
+    ],
+    [
+      "brick:hasAssociatedTag",
+      "brick:isAssociatedWith"
+    ],
+    [
+      "brick:hasPoint",
+      "brick:isPointOf"
+    ],
+    [
+      "brick:hasSubMeter",
+      "brick:isSubMeterOf"
+    ],
+    [
+      "brick:hasTag",
+      "brick:isTagOf"
+    ],
+    [
+      "brick:hosts",
+      "brick:isHostedBy"
+    ],
+    [
+      "brick:isFedBy",
+      "brick:feeds"
+    ],
+    [
+      "brick:isLocationOf",
+      "brick:hasLocation"
+    ],
+    [
+      "brick:isMeteredBy",
+      "brick:meters"
+    ],
+    [
+      "brick:isPartOf",
+      "brick:hasPart"
+    ]
+  ],
+  "externalReferenceTypes": {
+    "ref:ExternalReference": {
+      "label": "External reference",
+      "definition": "The parent class of all external reference types",
+      "parentClass": "s223:ExternalReference",
+      "requiredProperties": [],
+      "optionalProperties": []
+    },
+    "ref:TimeseriesReference": {
+      "label": "Timeseries Reference",
+      "definition": "A reference to a stream of timeseries data in a database. Contains the data for this entity",
+      "parentClass": "ref:ExternalReference",
+      "requiredProperties": [
+        {
+          "path": "ref:hasTimeseriesId",
+          "datatype": "xsd:string",
+          "definition": "The identifier for the timeseries data corresponding to this point"
+        }
+      ],
+      "optionalProperties": []
+    },
+    "ref:BACnetReference": {
+      "label": "BACnet Reference",
+      "definition": "A reference to the BACnet object represented by this entity.",
+      "parentClass": "ref:ExternalReference",
+      "requiredProperties": [
+        {
+          "path": "bacnet1:contains",
+          "datatype": "",
+          "definition": ""
+        }
+      ],
+      "optionalProperties": [
+        {
+          "path": "bacnet1:object",
+          "datatype": "xsd:string",
+          "definition": ""
+        }
+      ]
+    },
+    "ref:IFCReference": {
+      "label": "Industry Foundation Classes Reference",
+      "definition": "A reference to an entity in an IFC project which may contain additional metadata about this entity.",
+      "parentClass": "ref:ExternalReference",
+      "requiredProperties": [],
+      "optionalProperties": [
+        {
+          "path": "ref:ifcName",
+          "datatype": "xsd:string",
+          "definition": "Name of the entity in IFC"
+        }
+      ]
+    }
+  },
+  "referenceProperties": {
+    "ref:hasExternalReference": {
+      "label": "hasExternalReference",
+      "definition": "Points to the external reference for this entity, which contains additional metadata/data not included in this graph.",
+      "propertyType": "object",
+      "range": null,
+      "superProperty": "s223:hasExternalReference"
+    },
+    "ref:hasTimeseriesReference": {
+      "label": "hasTimeseriesReference",
+      "definition": "Metadata for accessing related timeseries data: Relates a data source (such as a Brick Point or 223 Property) to the TimeseriesReference that indicates where and how the data for this point is stored",
+      "propertyType": "object",
+      "range": "ref:TimeseriesReference",
+      "superProperty": "ref:hasExternalReference"
+    },
+    "ref:hasTimeseriesId": {
+      "label": "hasTimeseriesId",
+      "definition": "The unique identifier (primary key) for this TimeseriesReference in some database",
+      "propertyType": "datatype",
+      "range": null,
+      "superProperty": null
+    },
+    "ref:storedAt": {
+      "label": "storedAt",
+      "definition": "A reference to where the data for this TimeseriesReference is stored",
+      "propertyType": "datatype",
+      "range": null,
+      "superProperty": null
+    },
+    "ref:preferred": {
+      "label": "preferred",
+      "definition": "An entity can have one 'preferred' External Reference. Consumers of the model should prioritize any external reference with the 'preferred' property",
+      "propertyType": "datatype",
+      "range": null,
+      "superProperty": null
+    }
+  },
+  "spatial": {
+    "hierarchy": {
+      "rec:Space": {
+        "label": "Space",
+        "comment": "A contiguous part of the physical world that contains or can contain sub-spaces. E.g., a Region can contain many Sites, which in turn can contain many Buildings.",
+        "parent": "rdfs:Resource",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": [
+          {
+            "path": "rec:georeference",
+            "datatype": "rec:Georeference",
+            "description": ""
+          }
+        ]
+      },
+      "rec:Architecture": {
+        "label": "Architecture",
+        "comment": "A designed/landscaped (or potentially designed/landscaped) part of the physical world that has a 3D spatial extent. E.g., a building site, a building, levels within the building, rooms, etc.",
+        "parent": "rec:Space",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": [
+          {
+            "path": "rec:documentation",
+            "datatype": "rec:Document",
+            "description": ""
+          }
+        ]
+      },
+      "rec:Building": {
+        "label": "Building",
+        "comment": "A confined building structure.",
+        "parent": "rec:Architecture",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:Site": {
+        "label": "Site",
+        "comment": "A piece of land upon which zero or more buildings may be situated.",
+        "parent": "rec:Architecture",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:Region": {
+        "label": "Region",
+        "comment": "An administrative geospatial unit larger than the individual real estate. For instance, \\",
+        "parent": "rec:Space",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:Wing": {
+        "label": "Wing",
+        "comment": "This concept definition comes from the Brick distribution until it is added in the REC ontology Turtle distribution.",
+        "parent": "rec:Architecture",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:Level": {
+        "label": "Level",
+        "comment": "The level of a building, a.k.a. storey, floor, etc.",
+        "parent": "rec:Architecture",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": [
+          {
+            "path": "rec:levelNumber",
+            "datatype": "xsd:integer",
+            "description": ""
+          }
+        ]
+      },
+      "rec:BasementLevel": {
+        "label": "Basement level",
+        "comment": "",
+        "parent": "rec:Level",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:MezzanineLevel": {
+        "label": "Mezzanine level",
+        "comment": "",
+        "parent": "rec:Level",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:RoofLevel": {
+        "label": "Roof level",
+        "comment": "",
+        "parent": "rec:Level",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      },
+      "rec:Room": {
+        "label": "Room",
+        "comment": "",
+        "parent": "rec:Architecture",
+        "deprecated": false,
+        "replacedBy": null,
+        "properties": []
+      }
+    },
+    "roomSubtypes": [
+      "rec:Atrium",
+      "rec:Auditorium",
+      "rec:BackOffice",
+      "rec:Bathroom",
+      "rec:Bedroom",
+      "rec:Cinema",
+      "rec:CleaningRoom",
+      "rec:CloakRoom",
+      "rec:ConferenceRoom",
+      "rec:ConversationRoom",
+      "rec:CopyingRoom",
+      "rec:DressingRoom",
+      "rec:EducationalRoom",
+      "rec:ElevatorRoom",
+      "rec:ElevatorShaft",
+      "rec:Entrance",
+      "rec:ExerciseRoom",
+      "rec:ExhibitionRoom",
+      "rec:FoodHandlingRoom",
+      "rec:Garage",
+      "rec:Hallway",
+      "rec:HealthcareRoom",
+      "rec:Laboratory",
+      "rec:LaundryRoom",
+      "rec:Library",
+      "rec:LivingRoom",
+      "rec:LoadingReceivingRoom",
+      "rec:Lobby",
+      "rec:LockerRoom",
+      "rec:Lounge",
+      "rec:MeditationRoom",
+      "rec:MothersRoom",
+      "rec:MultiPurposeRoom",
+      "rec:Office",
+      "rec:PersonalHygiene",
+      "rec:Reception",
+      "rec:RecordingRoom",
+      "rec:RecreationalRoom",
+      "rec:RestingRoom",
+      "rec:RetailRoom",
+      "rec:SecurityRoom",
+      "rec:ServiceShaft",
+      "rec:Shelter",
+      "rec:StaffRoom",
+      "rec:Stairwell",
+      "rec:Storage",
+      "rec:TeamRoom",
+      "rec:Theater",
+      "rec:TreatmentRoom",
+      "rec:UtilitiesRoom",
+      "rec:WasteManagementRoom",
+      "rec:Workshop"
+    ],
+    "levelSubtypes": [
+      "rec:BasementLevel",
+      "rec:MezzanineLevel",
+      "rec:RoofLevel"
+    ],
+    "deprecations": [
+      {
+        "deprecated": "brick:Building",
+        "replacement": "rec:Building",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Floor",
+        "replacement": "rec:Level",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Storey",
+        "replacement": "rec:Level",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Room",
+        "replacement": "rec:Room",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Space",
+        "replacement": "rec:Space",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Site",
+        "replacement": "rec:Site",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Region",
+        "replacement": "rec:Region",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Wing",
+        "replacement": "rec:Wing",
+        "message": ""
+      },
+      {
+        "deprecated": "brick:Location",
+        "replacement": "rec:Architecture",
+        "message": ""
+      }
+    ],
+    "spatialProperties": {
+      "rec:locatedIn": {
+        "label": "locatedIn",
+        "definition": "",
+        "inverse": null,
+        "equivalentProperty": null,
+        "subPropertyOf": null
+      },
+      "rec:isLocationOf": {
+        "label": "isLocationOf",
+        "definition": "",
+        "inverse": null,
+        "equivalentProperty": null,
+        "subPropertyOf": null
+      },
+      "rec:hasPart": {
+        "label": "hasPart",
+        "definition": "",
+        "inverse": null,
+        "equivalentProperty": null,
+        "subPropertyOf": "brick:hasPart"
+      },
+      "rec:isPartOf": {
+        "label": "isPartOf",
+        "definition": "",
+        "inverse": null,
+        "equivalentProperty": null,
+        "subPropertyOf": "brick:isPartOf"
+      },
+      "rec:includes": {
+        "label": "includes",
+        "definition": "",
+        "inverse": null,
+        "equivalentProperty": null,
+        "subPropertyOf": null
+      }
+    }
+  },
+  "patterns": {
+    "description": "Common triple patterns for AI-CX building models. Use these as templates when generating TTL in Phase 6.",
+    "examples": [
+      {
+        "name": "Equipment → Point (sensor/setpoint linkage)",
+        "description": "Every sensor, setpoint, command, or status is a brick:Point attached to its parent Equipment or Location via brick:hasPoint.",
+        "triples": [
+          "bldg:VE01 a brick:Air_Handling_Unit .",
+          "bldg:VE01_TI1 a brick:Supply_Air_Temperature_Sensor .",
+          "bldg:VE01 brick:hasPoint bldg:VE01_TI1 ."
+        ]
+      },
+      {
+        "name": "Equipment composition (hasPart)",
+        "description": "Physical containment — a damper, valve, or fan is part of an AHU or VAV.",
+        "triples": [
+          "bldg:VE01 a brick:Air_Handling_Unit .",
+          "bldg:VE01_SF1 a brick:Supply_Fan .",
+          "bldg:VE01 brick:hasPart bldg:VE01_SF1 ."
+        ]
+      },
+      {
+        "name": "Flow topology (feeds)",
+        "description": "Upstream/downstream flow — heating plant feeds AHU feeds Zone.",
+        "triples": [
+          "bldg:VA07 brick:feeds bldg:VE01 .",
+          "bldg:VE01 brick:feeds bldg:Z_101 ."
+        ]
+      },
+      {
+        "name": "Spatial location (hasLocation)",
+        "description": "Equipment or zones located in a physical space.",
+        "triples": [
+          "bldg:VE01 brick:hasLocation bldg:level_1 .",
+          "bldg:Z_101 brick:hasLocation bldg:room_1_01 ."
+        ]
+      },
+      {
+        "name": "Timeseries reference (TSDB linkage)",
+        "description": "Connects a Brick Point to its timeseries data in TimescaleDB. This is the critical link between the semantic model and live data. ref:hasTimeseriesId holds the object name from objects.json (tsdb.id).",
+        "triples": [
+          "bldg:Z_102_TS1 a brick:Zone_Air_Temperature_Sensor .",
+          "bldg:Z_102_TS1 ref:hasExternalReference [",
+          "    a ref:TimeseriesReference ;",
+          "    ref:hasTimeseriesId \"Z_102_TS1\" ;",
+          "] ."
+        ]
+      },
+      {
+        "name": "Metering (meters)",
+        "description": "A meter measures consumption/production of a substance for an entity.",
+        "triples": [
+          "bldg:VA07_QM1 a brick:Thermal_Power_Meter .",
+          "bldg:VA07_QM1 brick:meters bldg:VA07 ."
+        ]
+      },
+      {
+        "name": "Spatial hierarchy (REC containment)",
+        "description": "Building → Level → Room containment uses rec: classes (brick: location classes are deprecated in 1.4.4). Space-to-space uses rec:isPartOf/rec:hasPart.",
+        "triples": [
+          "bldg:Building a rec:Building .",
+          "bldg:level_1 a rec:Level ; rec:levelNumber 1 ; rec:isPartOf bldg:Building .",
+          "bldg:room_1_02 a rec:Office ; rec:isPartOf bldg:level_1 ."
+        ]
+      },
+      {
+        "name": "Zone/equipment placement (hasLocation)",
+        "description": "Non-spatial entities (zones, equipment) placed in a space use brick:hasLocation (equivalent to rec:locatedIn), not rec:isPartOf.",
+        "triples": [
+          "bldg:Z_102 a brick:HVAC_Zone ; brick:hasLocation bldg:room_1_02 .",
+          "bldg:VE01 a brick:Air_Handling_Unit ; brick:hasLocation bldg:level_1 ."
+        ]
+      }
+    ]
+  }
+}

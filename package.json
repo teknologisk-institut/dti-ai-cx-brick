@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@types/n3": "^1.26.1",
+    "@types/node": "^25.3.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "n3": "^2.0.3"
+  }
+}
