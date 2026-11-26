@@ -1,4 +1,4 @@
-# dti-ai-cx-brick (repo in development)
+# dti-ai-cx-brick
 
 *Project: AI-Cx — Proof-of-Concept: AI-assisteret og automatiseret semantisk integration af bygningsdata til commissioning og bygningsdrift*
 
